@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-md-2">
-        <div class="w3-sidebar w3-bar-block w3-white w3-card" id="side_bar" style="width: 16%">
+<!--        <div class="w3-sidebar w3-bar-block w3-white w3-card" id="side_bar" style="width: 16%">-->
             <ul class="nav sidebar-nav">
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Customers<span class="caret"></span></a>
                     <ul class="dropdown-menu" style="width: 100%">
-<!--                        <li><a href="--><?php //echo site_url(); ?><!--/Admin/add_customer">Add Customer</a></li>-->
-<!--                        <li><a href="--><?php //echo site_url(); ?><!--/Admin/update_customer">Update Customer Details</a></li>-->
+                        <li><a href="<?php echo site_url(); ?>/Admin/add_customer">Add Customer</a></li>
+                        <li><a href="<?php echo site_url(); ?>/Admin/update_customer">Update Customer Details</a></li>
                         <li><a href="<?php echo site_url(); ?>/Admin/view_customer">View Customers</a></li>
-                        <li><a href="<?php echo site_url(); ?>/Admin/removeCustomer">Remove Customer</a></li>
+                        <li><a href="<?php echo site_url(); ?>/Admin/remove_customer">Remove Customer</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Delivery Persons<span class="caret"></span></a>
@@ -15,7 +15,7 @@
                         <li><a href="<?php echo site_url(); ?>/Admin/add_delivery_person">Add Delivery Person</a></li>
                         <li><a href="<?php echo site_url(); ?>/Admin/update_delivery_person">Update Delivery Person Details</a></li>
                         <li><a href="<?php echo site_url(); ?>/Admin/view_delivery_person">View Delivery Persons</a></li>
-                        <li><a href="<?php echo site_url(); ?>/Admin/removeDp">Remove Delivery Person</a></li>
+                        <li><a href="<?php echo site_url(); ?>/Admin/remove_dp">Remove Delivery Person</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Orders<span class="caret"></span></a>
@@ -81,7 +81,7 @@
 <!--                <a href="#" class="w3-bar-item w3-button">View Products</a>-->
 <!--                <a href="#" class="w3-bar-item w3-button">Remove Product</a>-->
 <!--            </div>-->
-        </div>
+<!--        </div>-->
 
     </div>
 

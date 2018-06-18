@@ -9,7 +9,7 @@
 <?php require_once 'admin_side_bar.php' ?>
 <div class="col-md-10" style="padding-left: 120px">
     <div class="container" style="padding-top: 10px">
-        <?php echo form_open('User_authentication/user_registration'); ?>
+        <?php echo form_open('Admin/customer_registration'); ?>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
                 <label for="name" style="color: grey">Customer Name</label>
@@ -83,71 +83,6 @@
     </div>
 </div>
 </div>
-
-<script>
-    function myAccFunc1() {
-        var x = document.getElementById("demoAcc1");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-green";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-            x.previousElementSibling.className =
-                x.previousElementSibling.className.replace(" w3-green", "");
-        }
-    }
-
-    function myAccFunc2() {
-        var x = document.getElementById("demoAcc2");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-green";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-            x.previousElementSibling.className =
-                x.previousElementSibling.className.replace(" w3-green", "");
-        }
-    }
-
-    function myAccFunc3() {
-        var x = document.getElementById("demoAcc3");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-green";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-            x.previousElementSibling.className =
-                x.previousElementSibling.className.replace(" w3-green", "");
-        }
-    }
-
-    function myAccFunc4() {
-        var x = document.getElementById("demoAcc4");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-green";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-            x.previousElementSibling.className =
-                x.previousElementSibling.className.replace(" w3-green", "");
-        }
-    }
-
-    window.onscroll = function() {scrollFunction()};
-
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("navbar").style.top = "0";
-        } else {
-            document.getElementById("navbar").style.top = "-50px";
-        }
-    }
-
-    function scrollWin() {
-        window.scrollBy(0, 100);
-    }
-
-</script>
 
 
 </body>

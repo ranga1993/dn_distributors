@@ -39,7 +39,7 @@ class User_authentication extends CI_Controller{
                         'loggedin'=>TRUE
                     );
                     $this->session->set_userdata($user_data);
-                    redirect('Home/delivery_person');
+                    redirect('Home/D_person');
                 }
                 else{
                     $user_data=array(

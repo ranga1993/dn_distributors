@@ -17,6 +17,7 @@
                 <th>NIC</th>
                 <th>Email</th>
                 <th>Contact Number</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -30,14 +31,99 @@
                 <td><?php echo $row->nic; ?></td>
                 <td><?php echo $row->email; ?></td>
                 <td><?php echo $row->contact_number; ?></td>
+                <td><button type="button" class="btn btn-info" onclick="view_each_customer(<?php echo $row->customer_id; ?>)">View</button></td>
+<!--                <td>--><?php //echo anchor("Admin/view_each_customer/{$row-> customer_id}",'View',['class'=>'btn btn-info']);?><!--</td>-->
                 </tr>
             <?php }
             ?>
         </tbody>
     </table>
 </div>
+
+<div class="container modal fade" style="padding-top: 20px" id="viewCustomerModal">
+    <div class="w3-card-2 text-center modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="padding-top: 8px">
+                    <div class="col-md-3">
+                        <label for="name" style="color: grey">Customer Name</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input name="customer_name" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 8px">
+                    <div class="col-md-3">
+                        <label for="company_name" style="color: grey">Company Name</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input name="company_name" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 8px">
+                    <div class="col-md-3">
+                        <label for="address" style="color: grey">Address</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input name="address" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 8px">
+                    <div class="col-md-3">
+                        <label for="nic" style="color: grey">NIC</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input name="nic" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 8px">
+                    <div class="col-md-3">
+                        <label for="email" style="color: grey">Email</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input name="email" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 8px">
+                    <div class="col-md-3">
+                        <label for="contact_number" style="color: grey">Contact Number</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input name="contact_number" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+
+</div>
+
+<script type="text/javascript">
+    var save_method;
+    function view_each_customer(customer_id){
+        save_method = 'view';
+        $.ajax({
+            url: "<?php echo site_url(); ?>/Admin/view_each_customer/" + customer_id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+                $('[name="customer_name"]').val(data.customer_name);
+                $('[name="company_name"]').val(data.company_name);
+                $('[name="address"]').val(data.address);
+                $('[name="nic"]').val(data.nic);
+                $('[name="email"]').val(data.email);
+                $('[name="contact_number"]').val(data.contact_number);
+
+                $('#viewCustomerModal').modal('show');
+            }
+        })
+    }
+</script>
 
 </body>
 </html>
