@@ -16,32 +16,15 @@
 
     </div>
 
-    <div class="container" >
-
-        <h3>Your Details</h3>
-
-        <div class="form-group">
-            <label for="cus_name">Name</label>
-            <input type="text" class="form-control" id="cus_name" name="cus_name" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_name; ?><?php }?>" >
-        </div>
-        <div class="form-group">
-            <label for="cus_nic">NIC</label>
-            <input type="text" class="form-control" id="cus_nic" name="cus_nic" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_nic; ?><?php }?>">
-        </div>
-        <div class="form-group">
-            <label for="cus_address">Address</label>
-            <input type="text" class="form-control" id="cus_address" name="cus_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_address; ?><?php }?>">
-        </div>
-
-    </div>
 
     <div class="container" >
+        <?php echo form_open('Customer/Feedback');?>
 
         <h3>Order Details</h3>
 
         <div class="form-group">
             <label for="order_no">Order Number</label>
-            <input type="text" class="form-control" id="order_no" name="order_no" value="<?php foreach ($order as $res) {?><?php echo $res->order_no; ?><?php }?>" >
+            <input type="text" class="form-control" id="order_no" name="order_no" value="<?php foreach ($order as $res) {?><?php echo $res->order_number; ?><?php }?>" >
         </div>
         <div class="form-group">
             <label for="order_date">Order Date</label>
@@ -49,12 +32,11 @@
         </div>
         <div class="form-group">
             <label for="order_status">Order Status</label>
-            <input type="text" class="form-control" id="order_status" name="order_status" value="<?php foreach ($order as $res) {?><?php echo $res->order_status; ?><?php }?>">
+            <input type="text" class="form-control" id="order_status" name="order_status" value="<?php foreach ($order as $res) {?><?php if ($res->order_status == 2){echo 'Delivered';} ?><?php }?>">
         </div>
 
     </div>
 
-    <?php echo form_open('Customer_Feedback/Feedback', array("id" =>"form-feedback","class" => "form-horizontal"));?>
 
     <?php echo validation_errors(); ?>
 
@@ -68,7 +50,7 @@
         <div class="container">
             <div class="form-group">
                 <label for="cus_feedback">Give Your Feedback Here</label>
-                <input type="text" class="form-control" rows="3" id="cus_feedback" name="cus_feedback" placeholder="Please Write Youre Feedback Here About Our Delevery Process"></input>
+                <textarea type="text" class="form-control" rows="3" id="cus_feedback" name="cus_feedback" placeholder="Please Write Youre Feedback Here About Our Delevery Process" required></textarea>
             </div>
 
             <div class="row">

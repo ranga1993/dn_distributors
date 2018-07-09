@@ -21,16 +21,16 @@
                             <label for="cus_id" style="color: grey">Your ID</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_id" value="<?php foreach ($customer as $cus) {?><?php echo $cus->customer_id; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_id" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_id; ?><?php }?>" required readonly>
                         </div>
                     </div>
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="name" style="color: grey">Name</label>
+                            <label for="cus_name" style="color: grey">Name</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_name" value="<?php foreach ($customer as $cus) {?><?php echo $cus->customer_name; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_name" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_name; ?><?php }?>" required>
                         </div>
                     </div>
 
@@ -39,7 +39,7 @@
                             <label for="cus_nic" style="color: grey">NIC</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_nic" value="<?php foreach ($customer as $cus) {?><?php echo $cus->nic; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_nic" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_nic; ?><?php }?>" required readonly>
                         </div>
                     </div>
 
@@ -48,61 +48,52 @@
                             <label for="cus_address" style="color: grey">Customer Address</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->address; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_address; ?><?php }?>" required>
                         </div>
                     </div>
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="cus_fixed_phone" style="color: grey">Phone Number (Fixed)</label>
+                            <label for="cus_phone" style="color: grey">Phone Number (Fixed)</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_fixed_phone" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_fixed_phone; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_phone" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_phone; ?><?php }?>" required>
                         </div>
                     </div>
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="cus_mobile_phone" style="color: grey">Phone Number (Mobile)</label>
+                            <label for="cus_email" style="color: grey">Email</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_mobile_phone" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_mobile_phone; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_email" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_email; ?><?php }?>" required readonly>
                         </div>
                     </div>
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="email" style="color: grey">Email</label>
+                            <label for="cus_company_name" style="color: grey">Company Name</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="email" value="<?php foreach ($customer as $cus) {?><?php echo $cus->email; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_company_name" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_company_name; ?><?php }?>" required>
                         </div>
                     </div>
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="cus_com_name" style="color: grey">Company Name</label>
+                            <label for="cus_company_address" style="color: grey">Company Address</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_com_name" value="<?php foreach ($customer as $cus) {?><?php echo $cus->company_name; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_company_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_company_address; ?><?php }?>" required>
                         </div>
                     </div>
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="cus_com_address" style="color: grey">Company Address</label>
+                            <label for="cus_company_phone" style="color: grey">Company Phone</label>
                         </div>
                         <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_com_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_com_address; ?><?php }?>" required>
-                        </div>
-                    </div>
-
-                    <div class="row" style="padding-top: 8px">
-                        <div class="col-md-2">
-                            <label for="cus_com_phone" style="color: grey">Company Phone</label>
-                        </div>
-                        <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_com_phone" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_com_phone; ?><?php }?>" required>
+                            <input type="text" class="form-control" name="cus_company_phone" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_company_phone; ?><?php }?>" required>
                         </div>
                     </div>
 

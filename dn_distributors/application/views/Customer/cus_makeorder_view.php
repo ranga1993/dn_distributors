@@ -1,212 +1,151 @@
-<?php require_once ('header.php') ?>
+<?php require_once ('cus_header.php') ?>
+<?php require_once ('top.php') ?>
+<?php require_once ('customer_side_bar.php') ?>
 
-<?php echo form_open('Customer/MakeOrder');?>
+
+
+<?php echo form_open('Customer/SubmitOrder');?>
 
 <div class="container" >
 
-    <h2>Please Make Your Order By Filling This Form</h2>
+    <h2 align="center">Please Make Your Order Here</h2>
 
     <?php  echo validation_errors();?>
 
     <div class="container">
-
-        <?php if($this->session->flashdata('massage')) {echo "<h3>".$this->session->flashdata('massage')."</h3>";}?>
-
-    </div>
-
-    <div class="container" >
-
-        <h3>Your Details</h3>
-
-
-        <?php if ($customer!=NULL ) {?>
-        <div class="form-group">
-            <label for="cus_name">Name</label>
-            <input type="text" class="form-control" id="cus_name" name="cus_name" value="<?php foreach ($customer as $cus) {?><?php echo $cus->customer_name; ?><?php }?>" >
-        </div>
-        <div class="form-group">
-            <label for="cus_nic">NIC</label>
-            <input type="text" class="form-control" id="cus_nic" name="cus_nic" value="<?php foreach ($customer as $cus) {?><?php echo $cus->nic; ?><?php }?>">
-        </div>
-        <div class="form-group">
-            <label for="cus_address">Address</label>
-            <input type="text" class="form-control" id="cus_address" name="cus_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->address; ?><?php }?>">
-        </div>
-
-        <?php } ?>
+        <?php if($this->session->flashdata('massage'))
+        {echo "<h3>".$this->session->flashdata('massage')."</h3>";}?>
 
     </div>
 
-
-
-    <div class="container" >
-
-        <h3>Order Details</h3>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="input-group">
-                    <?php $select=''; ?>
-                    <input type="text" class="form-control" aria-label="..."id="cus_name" name="cus_name" value="" placeholder="Select Item from Dropdown Menu">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"  >Select Item <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <?php foreach ($product as $res):?>
-                            <li id="" name="first"><a ><?php echo $res->product_name;?></a></li>
-                            <?php endforeach ; ?>
-                            <!--<li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>-->
-                        </ul>
-                    </div><!-- /btn-group -->
-                </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
-
-        <div class="form-group">
-            <label for="application_id">Quantity</label>
-            <input type="text" class="form-control" id="cus_name" name="cus_name" value="<?php $selected_value = $this->input->post('city');?>">
-        </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-info">Add to Order</button>
-        </div>
-    </div>
-
-    <div class="container">
+    <div class="col-lg-6 col-md-6 ">
         <div class="table-responsive">
+            <h3 align="center" >Add item to your order</h3>
 
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Item ID </th>
-                    <th>Item Name </th>
-                    <th>Item Price </th>
-                    <th>Quantity</th>
-                    <th>Price*Quantity</th>
-                </tr>
-                </thead>
-                <tbody>
-                        <?php
-                        /*            if($application->num_rows()>0){
+            <?php
+                foreach ($product as $row){
+                    echo '
+                        <div class="col-md-5" style="
+                                                     padding:20px;
+                                                     background-color:#f1f1f1;
+                                                     border:1px solid #ccc;
+                                                     margin-bottom:16px;
+                                                     height:400px;" align="center">
 
-                                    foreach($application->result() as $rec){
-                                    */?>
-                        <!--<tr>
-                                <td> <?php /*echo $rec-> application_id ; */?> </td>
-                                <td> <?php /*echo $rec-> init_name ; */?> </td>
-                                <td> <?php /*echo $rec-> last_name ; */?> </td>
-                                <td> <?php /*echo $rec-> owner_nic ; */?> </td>
-                                <td> <?php /*echo $rec-> ward_no ; */?> </td>
-                                <br>
-                            </tr>-->
-                        <?php
-                            //}
-
-                            //}
-                            /*else{
-                        */?><!--
-                            <tr>
-                                <td> No Application Pending </td>
-                            </tr>
-
-                        --><?php
-                    /*                    }
-                                    */?>
-                </tbody>
-
-            </table>
-
+                                <h4> '.$row->product_name.' </h4>
+                                <h4>Rs : '.$row->product_price.' </h4>
+                                <input type="text" class="quantity" name="quantity"  id="'.$row->product_id.'" />
+                                <button type="button" name="add_cart"  class="btn btn-success add_cart" data-product_name="'.$row->product_name.'" data-product_price="'.$row->product_price.'" data-product_id="'.$row->product_id.'">Add to Order</button>
+                        </div>
+                    ';
+                }
+            ?>
         </div>
     </div>
 
-    <div class="container" >
-        <div class="form-group">
-            <label for="delevery_address">Delevery Address</label>
-            <input type="text" class="form-control" id="delevery_address" name="delevery_address" value="" placeholder="Delevery Address">
+    <div class="col-md-6 col-lg-6">
+
+        <div id="cart_details">
+            <h3 align="center">Order is Empty</h3>
         </div>
 
-    </div>
 
-    <div class="container" >
         <div class="form-group">
-            <label for="delevery_date">Delevery Date</label>
-            <input type="text" class="form-control" id="delevery_date" name="delevery_date" value="" placeholder="Delevery Date">
+            <label for="delivery_address">Delivery Address</label>
+            <input type="text" class="form-control" id="delivery_address" name="delivery_address" value="" placeholder="Delivery Address" required>
+        </div>
+
+        <div class="form-group">
+            <label for="delivery_date">Delivery Date</label>
+            <input type="date" class="form-control" id="delivery_date" name="delivery_date" value="" placeholder="Delivery Date" required>
         </div>
 
         <div class="row">
             <div class="col-lg-6">
                 <button type="submit" class="btn btn-success">Complete Your Order</button>
             </div><!-- /.col-lg-6 -->
-
             <div class="col-lg-6">
-                <button type="button" class="btn btn-warning">Cancel Your Order</button>
-            </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
+                <button type="button" name="clear_cart" class="btn btn-warning clear_cart">Cancel Your Order</button>
+            </div>
+        </div>
+
     </div>
+
 </div>
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function(){
+        $('.add_cart').click(function(){
+            var product_id = $(this).data("product_id");
+            var product_name = $(this).data("product_name");
+            var product_price = $(this).data("product_price");
+            var quantity = $('#'+ product_id).val();
+
+            if (quantity!='' && quantity>0){
+                $.ajax({
+                    url : "http://localhost/dn_distributors/index.php/Customer/AddToCart",
+                    method : "POST",
+                    data : {product_id : product_id, product_name : product_name, product_price : product_price, quantity : quantity },
+
+                    success : function(data){
+                        //alert ("Product Added into Cart ");
+                        $('#cart_details').html(data);
+                        $('#'+product_id).val('');
+                    }
+                });
+
+            }
+            else{
+                alert("Please Enter Valid Quantity");
+            }
+
+        });
+        $('#cart_details').load("http://localhost/dn_distributors/index.php/Customer/LoadCart");
+
+        $(document).on('click','.remove_inventory',function(){
+            var row_id = $(this).attr("id");
+            if(confirm("Are tou sure you want to remove this ? "))
+            {
+                $.ajax({
+                    url : "http://localhost/dn_distributors/index.php/Customer/RemoveItem",
+                    method : "POST",
+                    data : {row_id : row_id},
+                    success : function(data){
+                        alert ("Item Removed from Your Order");
+                        $('#cart_details').html(data);
+                    }
+                })
+            }
+            else
+            {
+                return false ;
+                //alert("so");
+            }
+        });
+
+        $(document).on('click','.clear_cart',function(){
+            if(confirm("Are you sure you want to clear order ? ")){
+                $.ajax({
+                    url : "http://localhost/dn_distributors/index.php/Customer/ClearCart",
+                    success : function (data){
+                        alert("Your order has been canceled...");
+                        $('#cart_details').html(data);
+                    }
+
+                });
+            }
+            else{
+                return false ;
+            }
+
+        });
+    });
+</script>
 
 <?php echo form_close();?>
-<!--<div class="input-append date form_datetime">
-    <input size="16" type="text" value="" readonly >
-    <span class="add-on"><i class="icon-th"></i></span>
-</div>
-
-<script type="text/javascript">
-    $(".form_datetime").datetimepicker({
-        format: "dd MM yyyy - hh:ii"
-    });
-</script>-->
-    <!--<div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Select Item
-                <span class="caret"></span>
-            </button>
-
-
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <?php /*$select=''; */?>
-
-                    <?php /*foreach ($product as $res):*/?>
-                <select id="<?php /*echo $res->id; */?>" ">
-                        <li><a href="#"><?php /*echo $res->product_name; */?></a></li>
-                            <?php /*  */?>
-                    <?php /*endforeach ; */?>
-
-
-            </ul>
-        </div>
-
-        <label class="paylabel" for="cardtype">Card Type:</label>
-        <select id="cardtype" name="cards">
-            <option value="selectcard">--- Please select ---</option>
-            <option value="mastercard">Mastercard</option>
-            <option value="maestro">Maestro</option>
-            <option value="solo">Solo (UK only)</option>
-            <option value="visaelectron">Visa Electron</option>
-            <option value="visadebit">Visa Debit</option>
-        </select><br/>
-        <script>
-        var card = document.getElementById("cardtype");
-        if(card.selectedIndex == 0) {
-        alert('select one answer');
-        }
-        else {
-        var selectedText = card.options[card.selectedIndex].text;
-        alert(selectedText);
-        }
-        </script>-->
-
-
-    <!--<div class="form-group">
-            <label for="application_id">Item Name</label>
-                <select name="name" >
-                    <?php /*foreach ($product as $res):*/?>
-                        <option value="<?php /*echo $res->id; */?>">
-                            <?php /*echo $res->product_name;*/?>
-                        </option>
-                    <?php /*endforeach ; */?>
-                </select>
-            <input type="text" class="form-control" id="cus_name" name="cus_name" value="">
-        </div>
-            --!>

@@ -2,17 +2,20 @@
 <?php require_once ('top.php') ?>
 <?php require_once ('customer_side_bar.php') ?>
 
+
+
 <div class="container">
         <h1>Pending Orders</h1>
         <div class="table-responsive">
 
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Order Number</th>
                         <th>Delivery Address </th>
-                        <th>Order Date </th>
+                        <th>Ordered Date </th>
                         <th>View Details</th>
+                        <th>Cancel Order</th>
 
                     </tr>
                 </thead>
@@ -23,42 +26,96 @@
                 $num_pending=$pending_orders->num_rows();
 
                 if($num_pending>0){
+                    $order_id['id']=0;
+                    $order_id['id2'] = 0;
+                    foreach($pending_orders->result() as $rec){
+                        if($order_id['id']!=$rec->order_id){
+                            $order_id['id'] = $rec->order_id;
+                             //print_r($pending_orders->result());
 
-                    foreach($pending_orders->result() as $rec){?>
-                        <tr>
-                            <td> <?php echo $rec-> order_no ; ?> </td>
-                            <td> <?php echo $rec-> delivery_address ; ?> </td>
-                            <td> <?php echo $rec-> order_date ; ?> </td>
-                            <td> <div class="form-group">
-                                    <button type="button" class="form-control" data-toggle="modal" data-target="#myModal">view</button>
+                            ?>
+                            <tr>
+                                <td> <?php echo $rec-> order_id ; ?> </td>
+                                <td> <?php echo $rec-> delivery_address ; ?> </td>
+                                <td> <?php echo $rec-> ordered_date ; ?> </td>
+                                <td> <div class="form-group">
+                                        <button type="button" class="form-control btn-info" data-toggle="modal" data-target="#myModal">view</button>
 
-                                    <div id="myModal" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
+                                        <div id="myModal" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
 
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Order Details</h4>
-                                                </div>
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Order Details</h4>
+                                                    </div>
 
-                                                <div class="modal-body">
+                                                    <div class="modal-body">
 
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Product ID</th>
+                                                                    <th>Product Price </th>
+                                                                    <th>Quantity </th>
+                                                                    <th>Total Price</th>
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php $order_id['price']=0 ?>
+                                                                    <?php foreach($pending_orders->result() as $op){
+                                                                        //print_r($op);
+                                                                        if($op->order_id==$order_id['id']){
+                                                                            //print_r($order_id['id']);
+                                                                            //$order_id['id2']=$op->order_id;
+                                                                        $order_id['price']+=$op-> total_price ; ?>
+                                                                        <tr>
+                                                                            <td><?php echo $op-> product_id ; ?></td>
+                                                                            <td><?php echo $op-> product_price ; ?></td>
+                                                                            <td><?php echo $op-> quantity ; ?></td>
+                                                                            <td><?php echo $op-> total_price ; ?></td>
+                                                                        </tr>
+
+                                                                    <?php }
+                                                                        else{
+                                                                            //$order_id['id2']=$op->order_id;
+                                                                        }
+                                                                    //print_r($order_id['price']);
+                                                                        }
+
+                                                                    ?>
+
+                                                                        <tr>
+                                                                            <td><?php echo "Total Price : Rs.".$order_id['price'] ; ?></td>
+                                                                        </tr>
+                                                                </tbody>
+                                                                </table>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                            </td>
+                                </td>
+                                <?php echo '<td><button type="button" name="cancel_order" class="form-control btn-danger cancel_order" data-order_id="'.$rec->order_id.'">Cancel</button></td>' ?>
 
 
-                            <br>
-                        </tr>
-                    <?php }
+                                <br>
+                            </tr>
+                            <?php
+
+                            }
+                        else{
+
+                        }
+                    }
                 }
 
-                else{ ?><
+                else{ ?>
                     <tr>
                         <td> No Pending Orders </td>
                     </tr>
@@ -70,19 +127,33 @@
             </table>
 
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Order Number">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Cancel Order</button>
-                          </span>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
-        </div>
+
+    <?php echo form_close(); ?>
 
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('.cancel_order').click(function () {
+            if(confirm("Are you sure you want to cancel this order")){
+                var order_id = $(this).data("order_id");
+                //alert(order_id);
+                $.ajax({
+                    url: "http://localhost/dn_distributors/index.php/Customer/CancelOrder",
+                    method: "POST",
+                    data: {order_id: order_id},
+                    success: function (data) {
+                        alert ("Order Removed");
+
+                    }
+                });
+            }
+            else{
+                return false;
+            }
+
+
+        });
+    });
+</script>
 

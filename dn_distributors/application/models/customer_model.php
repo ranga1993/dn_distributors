@@ -4,15 +4,24 @@ class customer_model extends CI_Model
 {
     public function get_customer($cus_id){
 
-        $this->db->where('customer_id', $cus_id);
+        $this->db->where('cus_id', $cus_id);
         $query=$this->db->get("customer");
         return $query->result() ;
     }
 
-    public function get_order($order_id){
-        $this->db->where('order_no', $order_id);
-        $query=$this->db->get("order_det");
+    public function get_order($order_number){
+        $this->db->where('order_number', $order_number);
+        $query=$this->db->get("order_details");
         return $query->result() ;
+    }
+
+    public function check_order($order_number){
+        $this->db->where('order_id', $order_number);
+        $query=$this->db->get("orders");
+        if ($query->num_rows() == 1){
+            return true;
+        }
+        else {return false; }
 
     }
 
@@ -28,12 +37,12 @@ class customer_model extends CI_Model
             'cus_name'=>$this->input->post('cus_name',TRUE),
             'cus_address'=>$this->input->post('cus_address',TRUE),
             'cus_nic'=>$this->input->post('cus_nic',TRUE),
-            'cus_fixed_phone'=>$this->input->post('cus_fixed_phone',TRUE),
-            'cus_mobile_phone'=>$this->input->post('cus_mobile_phone',TRUE),
+            'cus_phone'=>$this->input->post('cus_phone',TRUE),
             'cus_email'=>$this->input->post('cus_email',TRUE),
-            'cus_com_name'=>$this->input->post('cus_com_name',TRUE),
-            'cus_com_address'=>$this->input->post('cus_com_address',TRUE),
-            'cus_com_phone'=>$this->input->post('cus_com_phone',TRUE)
+            'cus_company_name'=>$this->input->post('cus_company_name',TRUE),
+            'cus_company_address'=>$this->input->post('cus_company_address',TRUE),
+            'cus_company_phone'=>$this->input->post('cus_company_phone',TRUE),
+            'cus_availability'=>1
         );
 
         return $this->db->insert('customer',$data);
@@ -42,56 +51,88 @@ class customer_model extends CI_Model
 
     public function Update_Customer($cusID){
         $data=array(
-            'customer_name'=>$this->input->post('cus_name',TRUE),
-            'address'=>$this->input->post('cus_address',TRUE),
-            'nic'=>$this->input->post('cus_nic',TRUE),
-            'cus_fixed_phone'=>$this->input->post('cus_fixed_phone',TRUE),
-            'cus_mobile_phone'=>$this->input->post('cus_mobile_phone',TRUE),
-            'email'=>$this->input->post('email',TRUE),
-            'company_name'=>$this->input->post('cus_com_name',TRUE),
-            'cus_com_address'=>$this->input->post('cus_com_address',TRUE),
-            'cus_com_phone'=>$this->input->post('cus_com_phone',TRUE)
+            'cus_name'=>$this->input->post('cus_name',TRUE),
+            'cus_address'=>$this->input->post('cus_address',TRUE),
+            'cus_nic'=>$this->input->post('cus_nic',TRUE),
+            'cus_phone'=>$this->input->post('cus_phone',TRUE),
+            'cus_email'=>$this->input->post('cus_email',TRUE),
+            'cus_company_name'=>$this->input->post('cus_company_name',TRUE),
+            'cus_company_address'=>$this->input->post('cus_company_address',TRUE),
+            'cus_company_phone'=>$this->input->post('cus_company_phone',TRUE)
         );
 
-        return $this->db->update('customer', $data, "customer_id = $cusID");
+        return $this->db->update('customer', $data, "cus_id = $cusID");
 
     }
 
 
     public function customer_feedback(){
 
-        $data=array(
-            'order_no'=>$this->input->post('cus_name',TRUE),
-            'deliver_date'=>$this->input->post('cus_address',TRUE),
-            'dp_name'=>$this->input->post('cus_nic',TRUE),
-            'customer_name'=>$this->input->post('cus_fixed_phone',TRUE),
-            'customer_feedback'=>$this->input->post('cus_mobile_phone',TRUE)
-
+        $data=array (
+            'order_no'=>$this->input->post('order_no'),
+            'customer_feedback'=>$this->input->post('cus_feedback')
         );
 
-        return $this->db->insert('delivered_order',$data);
-
+        $query = "UPDATE delivered_order SET customer_Feedback='$data[customer_feedback]'";
+        $this->db->query($query);
 
     }
 
-    public function get_delivered_orders($cusID){
-       /* $this->db->where('cus_id', $cusID);
-        $query=$this->db->get("delivered_order");
-        return $query ;*/
-        $this->db->select('t1.order_number, t1.order_date,t1.customer_name, t2.product_code, t2.quantity, t2.price');
-        $this->db->from('order_details as t1');
-        $this->db->where('t1.cus_id', $cusID);
-        $this->db->join('order_product as t2', 't1.order_number = t2.order_no', '');
+    public function get_delivered_orders($cus_nic){
+       $this->db->select('t2.order_id, t2.ordered_date, t2.delivery_address, t1.delevered_date, t3.product_id, t3.product_price, t3.quantity, t3.total_price');
+        $this->db->from('delevered_order as t1');
+        $this->db->where('t2.cus_nic', $cus_nic);
+        $this->db->where('t2.order_status',2);
+        $this->db->join('orders as t2', 't2.order_id = t1.order_id');
+        $this->db->join('order_product as t3', 't3.order_id = t2.order_id');
         $query=$this->db->get();
         return $query;
 
+    }
+
+    public function get_pending_orders($cus_nic){
+        $this->db->select('t2.order_id, t2.ordered_date,t2.delivery_address, t1.product_id,t1.product_price, t1.total_price, t1.quantity');
+        $this->db->from('order_product as t1');
+        $this->db->where('t2.cus_nic', $cus_nic );
+        $this->db->where('t2.order_status',1);
+        $this->db->join('orders as t2', 't2.order_id = t1.order_id', 'RIGHT');
+        $query=$this->db->get();
+        return $query;
+    }
+
+    public function cancel_pending_order($order_number){
+        $query = "UPDATE orders SET order_status=3 WHERE order_id='$order_number'";
+        return $this->db->query($query);
 
     }
 
-    public function get_pending_orders($cusID){
-        $this->db->where('cus_id', $cusID);
-        $query=$this->db->get("order_det");
-        return $query ;
+    public function add_order($cusID,$order,$data){
+        $order_no=$cusID.substr($order['order_date'],8,10).rand(1,5);
+        $order_details = array(
+            'order_id'         => $order_no,
+            'cus_nic'          => $cusID,
+            'ordered_date'     => $order['order_date'],
+            'delivery_address' => $order['delivery_address'],
+            'order_status'     => 1
+        );
+        $this->db->insert('orders',$order_details);
+
+        foreach ($data as $item){
+            $this->db->select('product_name');
+            $this->db->from('product');
+            $this->db->where('product_id',$item['id']);
+            $product_name =$this->db->get();
+            //print_r($product_name);
+            $order_product = array(
+                'order_id'      => $order_no,
+                'product_id'    => $item['id'],
+                'product_price' => $item['price'],
+                'quantity'      => $item['qty'],
+                'total_price'   => $item['subtotal'],
+            );
+            $this->db->insert('order_product',$order_product);
+        }
+
     }
 
 }

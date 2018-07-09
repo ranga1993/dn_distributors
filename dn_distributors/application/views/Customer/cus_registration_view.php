@@ -41,12 +41,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cus_fixed_phone">Phone Number (Fixed)</label>
-            <input type="text" class="form-control" id="cus_fixed_phone" name="cus_fixed_phone" value="" placeholder="Your Fixed Phone Number">
-        </div>
-        <div class="form-group">
-            <label for="cus_mobile_phone">Phone Number (Mobile)</label>
-            <input type="text" class="form-control" id="cus_mobile_phone" name="cus_mobile_phone" value="" placeholder="Your Mobile Phone Number">
+            <label for="cus_phone">Phone Number</label>
+            <input type="text" class="form-control" id="cus_phone" name="cus_phone" value="" placeholder="Your Mobile Phone Number">
         </div>
         <div class="form-group">
             <label for="cus_email">E-mail</label>
@@ -54,18 +50,18 @@
         </div>
 
         <div class="form-group">
-            <label for="cus_com_name">Company Name</label>
-            <input type="text" class="form-control" id="cus_com_name" name="cus_com_name" value="" placeholder="Your Company Name">
+            <label for="cus_company_name">Company Name</label>
+            <input type="text" class="form-control" id="cus_company_name" name="cus_company_name" value="" placeholder="Your Company Name">
         </div>
 
         <div class="form-group">
-            <label for="cus_com_address">Company Address</label>
-            <input type="text" class="form-control" id="cus_com_address" name="cus_com_address" value="" placeholder="Your Company Address" >
+            <label for="cus_company_address">Company Address</label>
+            <input type="text" class="form-control" id="cus_company_address" name="cus_company_address" value="" placeholder="Your Company Address" >
         </div>
 
         <div class="form-group">
-            <label for="cus_com_phone">Company Phone Number</label>
-            <input type="text" class="form-control" id="cus_com_phone" name="cus_com_phone" value="" placeholder="Your Company Phone number">
+            <label for="cus_company_phone">Company Phone Number</label>
+            <input type="text" class="form-control" id="cus_company_phone" name="cus_company_phone" value="" placeholder="Your Company Phone number">
         </div>
 
 
