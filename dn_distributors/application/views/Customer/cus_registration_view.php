@@ -9,18 +9,12 @@
 
     <h2>Please Fill This Form To Register</h2>
 
-    <?php /* echo validation_errors();*/?>
-
     <div id="the-massage"> </div>
 
-<!--    <div  class="validation_errors"> </div>-->
-
-    <div class="container">
-
-        <?php if($this->session->flashdata('massage')) {echo "<h3>".$this->session->flashdata('massage')."</h3>";}?>
-
-    </div>
-
+        <?php if($this->session->flashdata('massage')){
+            $message = $this->session->flashdata('massage');?>
+            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+        <?php } ?>
     <div class="container" >
 
         <h3>Your Details</h3>
@@ -138,5 +132,14 @@
 
         });
 
+        type="application/javascript">
+            /** After windod Load */
+            $(window).bind("load", function() {
+                window.setTimeout(function() {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                        $(this).remove();
+                    });
+                }, 4000);
+            });
 
     </script>

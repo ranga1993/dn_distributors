@@ -8,19 +8,18 @@
 
 <div class="container" >
 
-    <h2 align="center">Please Make Your Order Here</h2>
+    <h2 align="center"></h2>
 
     <?php  echo validation_errors();?>
 
-    <div class="container">
-        <?php if($this->session->flashdata('massage'))
-        {echo "<h3>".$this->session->flashdata('massage')."</h3>";}?>
-
-    </div>
+        <?php if($this->session->flashdata('massage')){
+            $message = $this->session->flashdata('massage');?>
+            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+        <?php } ?>
 
     <div class="col-lg-6 col-md-6 ">
         <div class="table-responsive">
-            <h3 align="center" >Add item to your order</h3>
+            <h3 align="center" >Add Item and Quantity</h3>
 
             <?php
                 foreach ($product as $row){
@@ -146,6 +145,17 @@
 
         });
     });
+
+        type="application/javascript">
+        /** After windod Load */
+        $(window).bind("load", function() {
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 4000);
+        });
+
 </script>
 
 <?php echo form_close();?>

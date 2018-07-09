@@ -3,9 +3,14 @@
 <?php require_once ('customer_side_bar.php') ?>
 
 
+    <?php if($this->session->flashdata('massage')){
+        $message = $this->session->flashdata('massage');?>
+        <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+    <?php } ?>
 
 <div class="container">
         <h1>Pending Orders</h1>
+
         <div class="table-responsive">
 
             <table class="table table-striped">
@@ -27,13 +32,10 @@
 
                 if($num_pending>0){
                     $order_id['id']=0;
-                    $order_id['id2'] = 0;
                     foreach($pending_orders->result() as $rec){
                         if($order_id['id']!=$rec->order_id){
                             $order_id['id'] = $rec->order_id;
-                             //print_r($pending_orders->result());
-
-                            ?>
+                             //print_r($pending_orders->result());?>
                             <tr>
                                 <td> <?php echo $rec-> order_id ; ?> </td>
                                 <td> <?php echo $rec-> delivery_address ; ?> </td>
@@ -69,7 +71,6 @@
                                                                         //print_r($op);
                                                                         if($op->order_id==$order_id['id']){
                                                                             //print_r($order_id['id']);
-                                                                            //$order_id['id2']=$op->order_id;
                                                                         $order_id['price']+=$op-> total_price ; ?>
                                                                         <tr>
                                                                             <td><?php echo $op-> product_id ; ?></td>
@@ -81,15 +82,10 @@
                                                                     <?php }
                                                                         else{
                                                                             //$order_id['id2']=$op->order_id;
-                                                                        }
-                                                                    //print_r($order_id['price']);
-                                                                        }
-
-                                                                    ?>
-
-                                                                        <tr>
-                                                                            <td><?php echo "Total Price : Rs.".$order_id['price'] ; ?></td>
-                                                                        </tr>
+                                                                        }}?>
+                                                                    <tr>
+                                                                        <td colspan="4" align="center"><?php echo "Total Price of this Order : Rs.".$order_id['price'] ; ?></td>
+                                                                    </tr>
                                                                 </tbody>
                                                                 </table>
 
@@ -102,8 +98,6 @@
                                         </div>
                                 </td>
                                 <?php echo '<td><button type="button" name="cancel_order" class="form-control btn-danger cancel_order" data-order_id="'.$rec->order_id.'">Cancel</button></td>' ?>
-
-
                                 <br>
                             </tr>
                             <?php
@@ -117,7 +111,7 @@
 
                 else{ ?>
                     <tr>
-                        <td> No Pending Orders </td>
+                        <td colspan="5" align="center"> No Pending Orders Yet... </td>
                     </tr>
 
                 <?php }?>
@@ -144,7 +138,7 @@
                     data: {order_id: order_id},
                     success: function (data) {
                         alert ("Order Removed");
-
+                        window.location.href ='http://localhost/dn_distributors/index.php/Customer/LoadPendingOrder';
                     }
                 });
             }
@@ -155,5 +149,15 @@
 
         });
     });
+
+    type="application/javascript">
+        /** After windod Load */
+        $(window).bind("load", function() {
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 4000);
+        });
 </script>
 

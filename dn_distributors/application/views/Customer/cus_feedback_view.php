@@ -6,16 +6,12 @@
 
     <h2>Please Give Your Feedback By Filling This Form</h2>
 
-
     <div class="container">
-
-        <?php if($this->session->flashdata('massage')) {
-            echo "<h3>".$this->session->flashdata('massage')."</h3>";
-
-        }?>
-
+        <?php if($this->session->flashdata('massage')){
+            $message = $this->session->flashdata('massage');?>
+            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+        <?php } ?>
     </div>
-
 
     <div class="container" >
         <?php echo form_open('Customer/Feedback');?>
@@ -36,8 +32,6 @@
         </div>
 
     </div>
-
-
     <?php echo validation_errors(); ?>
 
     <div class="container">
@@ -63,9 +57,17 @@
 
     <?php echo form_close();?>
 
-
-
-
+    <script>
+        type="application/javascript">
+            /** After windod Load */
+            $(window).bind("load", function() {
+                window.setTimeout(function() {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                        $(this).remove();
+                    });
+                }, 4000);
+            });
+    </script>
 
 </div>
 

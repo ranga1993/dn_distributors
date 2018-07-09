@@ -3,16 +3,23 @@
 
 class Customer extends CI_Controller
 {
+    var $data;
 
+    function __construct(){
+        parent::__construct(); // needed when adding a constructor to a controller
+        $this->data = array('cus_nic'=>1);
+        // $this->data can be accessed from anywhere in the controller.
+    }
     public function index(){
         //$this->load->view('templates/form');
-        $this->cusId = 1 ;
+        $this->cus_nic = array('cus_nic'=>1) ;
         $this->load->view('Customer/customer_main_view');
 
     }
 
     public function LoadDeliveredOrder(){
-        $cus_nic=1;
+        $cus_nic=$this->data['cus_nic'];
+        //print_r($this->data);
         $this->load->model('customer_model');
         $data['delivered_order']=$this->customer_model->get_delivered_orders($cus_nic);
         $this->load->view('Customer/cus_view_delivered_orders', $data);
@@ -20,9 +27,9 @@ class Customer extends CI_Controller
     }
 
     public function LoadPendingOrder(){
-        $cusID =1;
+        $cus_nic=$this->data['cus_nic'];
         $this->load->model('customer_model');
-        $data['pending_orders']=$this->customer_model->get_pending_orders($cusID);
+        $data['pending_orders']=$this->customer_model->get_pending_orders($cus_nic);
         $this->load->view('Customer/cus_view_pending_orders',$data);
         //print_r($data);
     }
@@ -34,13 +41,15 @@ class Customer extends CI_Controller
         $respond=$this->customer_model->check_order($order_number);
         //print_r($order_number);
         if($respond){
+            $massage=array('message' => 'Order Canceled!!!.','class' => 'alert alert-success fade in');
             $this->customer_model->cancel_pending_order($order_number);
-            $this->session->set_flashdata('massage','Order Canceled!!!.');
+            $this->session->set_flashdata('massage',$massage);
             redirect('Customer/index');
 
         }
         else{
-            $this->session->set_flashdata('massage','Something Wrong.!!! Please Try Again. ');
+            $massage=array('message' => 'Something Wrong.!!! Please Try Again. ','class' => 'alert alert-warning fade in');
+            $this->session->set_flashdata('massage',$massage);
             redirect('Customer/index');
         }
 
@@ -75,25 +84,27 @@ class Customer extends CI_Controller
             $data['success']=true;
 
             $this->load->model('customer_model');
-            $respond=$this->customer_model->Reg_customer();
+            $this->customer_model->Reg_customer();
+            $massage=array('message' => 'You are registered..','class' => 'alert alert-success fade in');
+            $this->session->set_flashdata('massage',$massage);
         }
         echo json_encode($data);
     }
 
     public function ViewRegDetails(){
         //echo'aaa';
-        $cusID=1;
+        $cus_nic=$this->data['cus_nic'];
         $this->load->model('customer_model');
 
         //get details of customer
-        $details['customer']=$this->customer_model->get_customer($cusID);
+        $details['customer']=$this->customer_model->get_customer($cus_nic);
 
         $this->load->view('Customer/cus_edit_reg_details',$details);
         //print_r($details);
     }
 
     public function EditRegDetails(){
-        $cusID=$this->input->post('cus_id');
+        $cus_nic=$this->data['cus_nic'];
 
         $this->form_validation->set_rules('cus_name','cus_name','required');
         $this->form_validation->set_rules('cus_address','cus_address','required');
@@ -104,25 +115,27 @@ class Customer extends CI_Controller
         //$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>' );
 
         if($this->form_validation->run() == FALSE ){
-            $this->session->set_flashdata('massage','You input some wrong details.please try again!!');
-            redirect('/Customer');
+            $massage=array('message' => 'You input some wrong details.please try again!!','class' => 'alert alert-warning fade in');
+            $this->session->set_flashdata('massage',$massage);
+            redirect('/Customer/ViewRegDetails');
         }
 
         else
         {
+            $massage=array('message' => 'You Edited Your Profile Details...','class' => 'alert alert-success fade in');
+            $this->session->set_flashdata('massage',$massage);
             $this->load->model('customer_model');
-            $this->customer_model->Update_Customer($cusID);
-            $this->session->set_flashdata('massage','You Edited Your Profile Details... ');
-            redirect('/Customer');
+            $this->customer_model->Update_Customer($cus_nic);
+            redirect('/Customer/ViewRegDetails');
 
         }
     }
 
-    public function LoadFeedback($zz){
+    public function LoadFeedback(){
         //$order_id=$this->input->post('order_no') ;
-        $order_id=$_POST["order_id"];
+        $ordeer_id=$_POST["order_id"];
         $this->load->model('customer_model');
-        $details['order']=$this->customer_model->get_order($order_id);
+        $details['order']=$this->customer_model->get_order($ordeer_id);
 
         //print_r($details);
         //$details['product']=$this->customer_model->get_product();
@@ -132,10 +145,19 @@ class Customer extends CI_Controller
 
     public function Feedback(){
 
-        $this->form_validation->set_rules('cus_feedback','cus_feedback','required');
+        //$this->form_validation->set_rules('cus_feedback','cus_feedback','required');
 
-        if ($this->form_validation->run() == FALSE){
-            $this->session->set_flashdata('massage','Something Wrong.. Please Try Again');
+        $data= $_POST["cus_feedback"];
+        //$data['order_id']     = $_POST["order_id"];
+        print_r($data);
+        $this->load->model('customer_model');
+        $this->customer_model->customer_feedback($data);
+        $massage=array('message' => 'Your Feedback Submitted ','class' => 'alert alert-success fade in');
+        $this->session->set_flashdata('massage',$massage);
+        redirect('Customer');
+        /*if ($this->form_validation->run() == FALSE){
+            $massage=array('message' => 'Something Wrong.. Please Try Again','class' => 'alert alert-warning fade in');
+            $this->session->set_flashdata('massage',$massage);
             redirect('/Customer/');
         }
 
@@ -143,11 +165,12 @@ class Customer extends CI_Controller
 
             $this->load->model('customer_model');
             $this->customer_model->customer_feedback();
-            $this->session->set_flashdata('massage','Feedback Submitted');
+            $massage=array('message' => 'Feedback Submitted','class' => 'alert alert-success fade in');
+            $this->session->set_flashdata('massage',$massage);
             redirect('/Customer');
 //            echo 'aaa';
 
-        }
+        }*/
 
 
     }
@@ -183,7 +206,7 @@ class Customer extends CI_Controller
     public function ViewCart(){
         $output='';
         $output.= '
-            <h3> Shopping Cart</h3>
+            <h3> Your Order</h3>
             <div class = "table-responsive" >
 
                 <table class="table table-bordered">
@@ -261,14 +284,16 @@ class Customer extends CI_Controller
         //print_r($data);
         //print_r($data['cusID']);
         if($count==0){
-            $this->session->set_flashdata('massage','Please add items to order before submit..');
+            $massage=array('message' => 'Please add items to order before submit..','class' => 'alert alert-warning fade in');
+            $this->session->set_flashdata('massage',$massage);
             redirect('/Customer/MakeOrder');
         }
         else{
             $this->load->model('customer_model');
             $this->customer_model->add_order($cusID,$order,$data);
             $this->ClearCart();
-            $this->session->set_flashdata('massage','Your Order Added.It Will Delivered On '+$order_date);
+            $massage=array('message' => 'Your Order Added.It Will Delivered to You ','class' => 'alert alert-success fade in');
+            $this->session->set_flashdata('massage',$massage);
             redirect('Customer');
         }
     }

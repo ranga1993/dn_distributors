@@ -7,6 +7,10 @@
 
 <div class="container" >
 
+    <?php if($this->session->flashdata('massage')){
+            $message = $this->session->flashdata('massage');?>
+            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+        <?php } ?>
     <div id="the-massage"> </div>
 
         <div class="container">
@@ -15,15 +19,6 @@
             </div>
             <div class="col-md-10" style="padding-left: 120px">
                 <div class="container" style="padding-top: 10px">
-
-                    <div class="row" style="padding-top: 8px">
-                        <div class="col-md-2">
-                            <label for="cus_id" style="color: grey">Your ID</label>
-                        </div>
-                        <div class="col-md-7">
-                            <input type="text" class="form-control" name="cus_id" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_id; ?><?php }?>" required readonly>
-                        </div>
-                    </div>
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
@@ -111,62 +106,14 @@
 </div>
 
 <?php echo form_close();?>
-
-<!--<script>
-
-    $('#form-edit').submit(function(e){
-        e.preventDefault();
-        //alert('submit');
-
-        var me= $(this);
-
-        $.ajax ({
-            url : me.attr('action'),
-            type : 'post',
-            data : me.serialize(),
-            dataType : 'json',
-            success : function (response) {
-                if(response.success == true){
-                    //alert('success');
-                    //show success massage
-                    //remove error class
-                    $('#the-massage').append('<div class= "alert alert-success" >'+
-                        '<span class="glyphicon glyphicon-ok "></span>'+
-                        'Register Successful' + '</div>');
-
-                    $('.form-group').removeClass('has-error')
-                        .removeClass('has-success');
-
-                    $('.text-danger').remove();
-
-                    //reset form
-                    me[0].reset();
-
-                    //close the massage after seconds
-                    $('.alert-success').delay(500).show(10,function(){
-                        $(this).delay(3000).hide(10,function(){
-                            $(this).remove();
-                        });
-                    })
-                }
-                else{
-                    //alert('failed');
-                    $.each(response.massages, function(key,value){
-                        var element = $("#"+ key);
-
-                        element.closest('div.form-group')
-                            .removeClass('has-error')
-                            .addClass(value.length > 0 ? 'has-error':'has-success')
-                            .find('.text-danger')
-                            .remove();
-
-                        element.after(value);
-                    });
-                }
-            }
+<script>
+    type="application/javascript">
+        /** After windod Load */
+        $(window).bind("load", function() {
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 4000);
         });
-
-    });
-
-
-</script>-->
+</script>

@@ -66,15 +66,15 @@ class customer_model extends CI_Model
     }
 
 
-    public function customer_feedback(){
+    public function customer_feedback($data){
 
-        $data=array (
+        /*$data=array (
             'order_no'=>$this->input->post('order_no'),
             'customer_feedback'=>$this->input->post('cus_feedback')
         );
 
-        $query = "UPDATE delivered_order SET customer_Feedback='$data[customer_feedback]'";
-        $this->db->query($query);
+        */$query = "UPDATE delivered_order SET customer_Feedback='$data[customer_feedback]'";
+        return $this->db->query($query);
 
     }
 

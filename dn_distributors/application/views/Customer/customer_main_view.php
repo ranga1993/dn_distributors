@@ -19,9 +19,11 @@
 <div class="col-md-9">
 </div>
 </div>
-<div class="container">
-    <?php if($this->session->flashdata('massage')) {echo "<h3>".$this->session->flashdata('massage')."</h3>";}?>
-</div>
+
+        <?php if($this->session->flashdata('massage')){
+            $message = $this->session->flashdata('massage');?>
+            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+        <?php } ?>
 
 </body>
 </html>
@@ -153,5 +155,13 @@
 
             });
 
-
+        type="application/javascript">
+        /** After windod Load */
+        $(window).bind("load", function() {
+          window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                $(this).remove();
+            });
+        }, 4000);
+        });
         </script>
