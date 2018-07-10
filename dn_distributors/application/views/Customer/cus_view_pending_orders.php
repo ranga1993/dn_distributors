@@ -4,8 +4,8 @@
 
 
     <?php if($this->session->flashdata('massage')){
-        $message = $this->session->flashdata('massage');?>
-        <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+        $massage = $this->session->flashdata('massage');?>
+        <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
     <?php } ?>
 
 <div class="container">
@@ -31,11 +31,13 @@
                 $num_pending=$pending_orders->num_rows();
 
                 if($num_pending>0){
-                    $order_id['id']=0;
+                    $order_id=0;
                     foreach($pending_orders->result() as $rec){
-                        if($order_id['id']!=$rec->order_id){
-                            $order_id['id'] = $rec->order_id;
-                             //print_r($pending_orders->result());?>
+                        if($order_id!=$rec->order_id){
+                            $order_id= $rec->order_id;
+                            $id=$rec->order_id;?>
+                            <?php $order_price=0;
+                            ?>
                             <tr>
                                 <td> <?php echo $rec-> order_id ; ?> </td>
                                 <td> <?php echo $rec-> delivery_address ; ?> </td>
@@ -66,12 +68,12 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <?php $order_id['price']=0 ?>
+
                                                                     <?php foreach($pending_orders->result() as $op){
-                                                                        //print_r($op);
-                                                                        if($op->order_id==$order_id['id']){
-                                                                            //print_r($order_id['id']);
-                                                                        $order_id['price']+=$op-> total_price ; ?>
+
+                                                                        if($id==$op->order_id){
+                                                                            //print_r($products);
+                                                                        $order_price+=$op-> total_price ; ?>
                                                                         <tr>
                                                                             <td><?php echo $op-> product_id ; ?></td>
                                                                             <td><?php echo $op-> product_price ; ?></td>
@@ -82,9 +84,12 @@
                                                                     <?php }
                                                                         else{
                                                                             //$order_id['id2']=$op->order_id;
-                                                                        }}?>
+                                                                            print_r($id);
+                                                                        }}
+                                                                    $id==0;
+                                                                    ?>
                                                                     <tr>
-                                                                        <td colspan="4" align="center"><?php echo "Total Price of this Order : Rs.".$order_id['price'] ; ?></td>
+                                                                        <td colspan="4" align="center"><?php echo "Total Price of this Order : Rs.".$order_price ; ?></td>
                                                                     </tr>
                                                                 </tbody>
                                                                 </table>
@@ -139,8 +144,11 @@
                     success: function (data) {
                         alert ("Order Removed");
                         window.location.href ='http://localhost/dn_distributors/index.php/Customer/LoadPendingOrder';
+
                     }
+
                 });
+
             }
             else{
                 return false;

@@ -13,24 +13,24 @@
     <?php  echo validation_errors();?>
 
         <?php if($this->session->flashdata('massage')){
-            $message = $this->session->flashdata('massage');?>
-            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+            $massage = $this->session->flashdata('massage');?>
+            <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
         <?php } ?>
 
-    <div class="col-lg-6 col-md-6 ">
+    <div class="col-lg-7 col-md-12 ">
         <div class="table-responsive">
             <h3 align="center" >Add Item and Quantity</h3>
 
             <?php
                 foreach ($product as $row){
                     echo '
-                        <div class="col-md-5" style="
+                        <div class="col-md-4" style="
                                                      padding:20px;
                                                      background-color:#f1f1f1;
                                                      border:1px solid #ccc;
                                                      margin-bottom:16px;
-                                                     height:400px;" align="center">
-
+                                                     height:300px;" align="center">
+                                <img src="http://localhost/dn_distributors/assets/images/'.$row->product_image.'" class="img-thumbnail" style="width:200px;height:100px;"/><br />
                                 <h4> '.$row->product_name.' </h4>
                                 <h4>Rs : '.$row->product_price.' </h4>
                                 <input type="text" class="quantity" name="quantity"  id="'.$row->product_id.'" />
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-lg-6">
+    <div class="col-md-4 col-lg-5">
 
         <div id="cart_details">
             <h3 align="center">Order is Empty</h3>
@@ -59,13 +59,13 @@
             <input type="date" class="form-control" id="delivery_date" name="delivery_date" value="" placeholder="Delivery Date" required>
         </div>
 
-        <div class="row">
-            <div class="col-lg-6">
+        <div class="form-group">
+
                 <button type="submit" class="btn btn-success">Complete Your Order</button>
-            </div><!-- /.col-lg-6 -->
-            <div class="col-lg-6">
+
+
                 <button type="button" name="clear_cart" class="btn btn-warning clear_cart">Cancel Your Order</button>
-            </div>
+
         </div>
 
     </div>
