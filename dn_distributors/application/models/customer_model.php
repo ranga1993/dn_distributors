@@ -2,9 +2,9 @@
 
 class customer_model extends CI_Model
 {
-    public function get_customer($cus_id){
+    public function get_customer($cus_nic){
 
-        $this->db->where('cus_id', $cus_id);
+        $this->db->where('cus_nic', $cus_nic);
         $query=$this->db->get("customer");
         return $query->result() ;
     }
@@ -49,19 +49,18 @@ class customer_model extends CI_Model
 
     }
 
-    public function Update_Customer($cusID){
+    public function Update_Customer($cus_nic){
         $data=array(
             'cus_name'=>$this->input->post('cus_name',TRUE),
             'cus_address'=>$this->input->post('cus_address',TRUE),
-            'cus_nic'=>$this->input->post('cus_nic',TRUE),
             'cus_phone'=>$this->input->post('cus_phone',TRUE),
-            'cus_email'=>$this->input->post('cus_email',TRUE),
             'cus_company_name'=>$this->input->post('cus_company_name',TRUE),
             'cus_company_address'=>$this->input->post('cus_company_address',TRUE),
             'cus_company_phone'=>$this->input->post('cus_company_phone',TRUE)
         );
 
-        return $this->db->update('customer', $data, "cus_id = $cusID");
+        //$query = "UPDATE customer SET cus_name='$data[cus_name]', cus_address='$data[cus_address]',cus_phone='$data[cus_phone]',cus_company_name='$data[cus_company_name],cus_company_address='$data[cus_company_address],cus_company_phone='$data[cus_company_phone]' WHERE cus_nic='$cus_nic";
+        return $this->db->update('customer',$data,"cus_nic='$cus_nic'");
 
     }
 
@@ -100,17 +99,24 @@ class customer_model extends CI_Model
         return $query;
     }
 
+    public function get_order_product(){
+        $this->db->select('*');
+        $this->db->from('order_product');
+        $query=$this->db->get();
+        return $query;
+    }
+
     public function cancel_pending_order($order_number){
         $query = "UPDATE orders SET order_status=3 WHERE order_id='$order_number'";
         return $this->db->query($query);
 
     }
 
-    public function add_order($cusID,$order,$data){
-        $order_no=$cusID.substr($order['order_date'],8,10).rand(1,5);
+    public function add_order($cus_nic,$order,$data){
+        $order_no=substr($cus_nic,0,3).substr($order['order_date'],8,10).rand(10,20);
         $order_details = array(
             'order_id'         => $order_no,
-            'cus_nic'          => $cusID,
+            'cus_nic'          => $cus_nic,
             'ordered_date'     => $order['order_date'],
             'delivery_address' => $order['delivery_address'],
             'order_status'     => 1
