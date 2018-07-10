@@ -1,10 +1,6 @@
 <?php require_once 'header.php'; ?>
 <?php if($this->session->userdata('loggedin') == TRUE)  {?>
     <?php require_once 'top2.php'; ?>
-<?php } else {?>
-    <?php require_once 'top.php'; ?>
-    <?php require_once 'login.php'; ?>
-    <?php require_once 'registration.php'; ?>
 <?php } ?>
 <?php require_once 'admin_side_bar.php' ?>
 <div class="container col-md-10"><br>
@@ -19,10 +15,11 @@
         <tr>
             <th>Customer Name</th>
             <th>Company Name</th>
-            <th>Address</th>
+            <th>Company Address</th>
             <th>NIC</th>
             <th>Email</th>
             <th>Contact Number</th>
+            <th>Company Contact Number</th>
             <th></th>
         </tr>
         </thead>
@@ -31,13 +28,14 @@
         foreach ($h->result() as $row)
         {
             ?><tr>
-            <td><?php echo $row->customer_name; ?></td>
-            <td><?php echo $row->company_name; ?></td>
-            <td><?php echo $row->address; ?></td>
-            <td><?php echo $row->nic; ?></td>
-            <td><?php echo $row->email; ?></td>
-            <td><?php echo $row->contact_number; ?></td>
-            <td><button type="button" class="btn btn-success" onclick="edit_customer(<?php echo $row->customer_id; ?>)">Update</button></td>
+            <td><?php echo $row->cus_name; ?></td>
+            <td><?php echo $row->cus_company_name; ?></td>
+            <td><?php echo $row->cus_company_address; ?></td>
+            <td><?php echo $row->cus_nic; ?></td>
+            <td><?php echo $row->cus_email; ?></td>
+            <td><?php echo $row->cus_phone; ?></td>
+            <td><?php echo $row->cus_company_phone; ?></td>
+            <td><button type="button" class="btn btn-success" onclick="edit_customer(<?php echo $row->cus_id; ?>)">Update</button></td>
             <!--                <td>--><?php //echo anchor("Admin/view_each_customer/{$row-> customer_id}",'View',['class'=>'btn btn-info']);?><!--</td>-->
             </tr>
         <?php }
@@ -54,53 +52,61 @@
             </div>
             <div class="modal-body">
                 <form action="#" id="form">
-                    <input type="hidden" value="" name="customer_id">
+                    <input type="hidden" value="" name="cus_id">
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="customer_name" style="color: grey">Customer Name</label>
+                            <label for="cus_name" style="color: grey">Customer Name</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="customer_name" class="form-control" type="text">
+                            <input name="cus_name" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="company_name" style="color: grey">Company Name</label>
+                            <label for="cus_company_name" style="color: grey">Company Name</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="company_name" class="form-control" type="text">
+                            <input name="cus_company_name" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="address" style="color: grey">Address</label>
+                            <label for="cus_company_address" style="color: grey">Company Address</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="address" class="form-control" type="text">
+                            <input name="cus_company_address" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="nic" style="color: grey">NIC</label>
+                            <label for="cus_nic" style="color: grey">NIC</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="nic" class="form-control" type="text">
+                            <input name="cus_nic" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="email" style="color: grey">Email</label>
+                            <label for="cus_email" style="color: grey">Email</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="email" class="form-control" type="text">
+                            <input name="cus_email" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="contact_number" style="color: grey">Contact Number</label>
+                            <label for="cus_phone" style="color: grey">Contact Number</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="contact_number" class="form-control" type="text">
+                            <input name="cus_phone" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 8px">
+                        <div class="col-md-3">
+                            <label for="cus_company_phone" style="color: grey">Company Contact Number</label>
+                        </div>
+                        <div class="col-md-7">
+                            <input name="cus_company_phone" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
@@ -116,20 +122,21 @@
 
 <script type="text/javascript">
     var save_method;
-    function edit_customer(customer_id){
+    function edit_customer(cus_id){
         save_method = 'update';
         $.ajax({
-            url: "<?php echo site_url(); ?>/Admin/view_each_customer/" + customer_id,
+            url: "<?php echo site_url(); ?>/Admin/view_each_customer/" + cus_id,
             type: "GET",
             dataType: "JSON",
             success: function(data){
-                $('[name="customer_id"]').val(data.customer_id);
-                $('[name="customer_name"]').val(data.customer_name);
-                $('[name="company_name"]').val(data.company_name);
-                $('[name="address"]').val(data.address);
-                $('[name="nic"]').val(data.nic);
-                $('[name="email"]').val(data.email);
-                $('[name="contact_number"]').val(data.contact_number);
+                $('[name="cus_id"]').val(data.cus_id);
+                $('[name="cus_name"]').val(data.cus_name);
+                $('[name="cus_company_name"]').val(data.cus_company_name);
+                $('[name="cus_company_address"]').val(data.cus_company_address);
+                $('[name="cus_nic"]').val(data.cus_nic);
+                $('[name="cus_email"]').val(data.cus_email);
+                $('[name="cus_phone"]').val(data.cus_phone);
+                $('[name="cus_company_phone"]').val(data.cus_company_phone);
 
                 $('#updateCustomerModal').modal('show');
             }

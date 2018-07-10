@@ -1,13 +1,13 @@
 <?php require_once ('cus_header.php') ?>
-<?php require_once ('top.php') ?>
+<?php require_once ('top2.php') ?>
 <?php require_once ('customer_side_bar.php') ?>
 
-<?php if($this->session->flashdata('massage')){
-    $massage = $this->session->flashdata('massage');?>
-    <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
-<?php } ?>
+    <?php if($this->session->flashdata('massage')){
+        $message = $this->session->flashdata('massage');?>
+        <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+    <?php } ?>
 <div class="container">
-    <h1 style="color: #0c5460">Delivered Order Details</h1>
+    <h1>Delivered Orders</h1>
     <div class="table-responsive">
 
         <table class="table table-striped">
@@ -67,7 +67,7 @@
                                                         <?php $order_id['price']=0 ?>
                                                         <?php foreach($delivered_order->result() as $op){
                                                             //print_r($op);
-                                                            if($op->order_id==$rec->order_id){
+                                                            if($op->order_id==$order_id['id']){
                                                                 //print_r($order_id['id']);
                                                                 //$order_id['id2']=$op->order_id;
                                                                 $order_id['price']+=$op-> total_price ; ?>
@@ -113,7 +113,7 @@
                                     <div class="modal-body">
                                         <label for="cus_feedback">Give Your Feedback Here</label>
                                         <textarea type="text" class="form-control" id="cus_feedback" name="cus_feedback" placeholder="Please Write Youre Feedback Here About Our Delivery Process" ></textarea>
-                                        <?php echo '<button type="button" id="give_feedback" name="give_feedback"  class="btn btn-success give_feedback" data-order_id="'.$rec->order_id.'">Submit Your Feedback</button>' ?>
+                                        <?php echo '<button type="button"  name="give_feedback"  class="btn btn-success give_feedback" data-order_id="'.$rec->order_id.'">Submit Your Feedback</button>' ?>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -160,7 +160,6 @@
                             //window.location.href ='http://localhost/dn_distributors/index.php/Customer/LoadPendingOrder';
                             $('#feedbackmodel').hide();
                             location.reload();
-                            //$('#give_feedback').prop('disabled', true);
                         }
                     });
                 }

@@ -13,26 +13,34 @@
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Delivery Persons<span class="caret"></span></a>
                     <ul class="dropdown-menu" style="width: 100%">
                         <li><a href="<?php echo site_url(); ?>/Admin/add_delivery_person">Add Delivery Person</a></li>
-                        <li><a href="<?php echo site_url(); ?>/Admin/update_delivery_person">Update Delivery Person Details</a></li>
+                        <li><a href="<?php echo site_url(); ?>/Admin/update_delivery_person">Update Delivery Person</a></li>
                         <li><a href="<?php echo site_url(); ?>/Admin/view_delivery_person">View Delivery Persons</a></li>
                         <li><a href="<?php echo site_url(); ?>/Admin/remove_dp">Remove Delivery Person</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Orders<span class="caret"></span></a>
-                    <ul class="dropdown-menu" style="width: 100%">
+<!--                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Orders<span class="caret"></span></a>-->
+<!--                    <ul class="dropdown-menu" style="width: 100%">-->
 <!--                        <li><a href="#">Create Order</a></li>-->
 <!--                        <li><a href="#">Update Order Details</a></li>-->
-                        <li><a href="<?php echo site_url(); ?>/Admin/view_pending_orders">View Pending Orders</a></li>
-                        <li><a href="<?php echo site_url(); ?>/Admin/view_delivered_orders">View Delivered Orders</a></li>
+<!--                        <li><a href="--><?php //echo site_url(); ?><!--/Admin/view_pending_orders">View Pending Orders</a></li>-->
+<!--                        <li><a href="--><?php //echo site_url(); ?><!--/Admin/view_delivered_orders">View Delivered Orders</a></li>-->
 <!--                        <li><a href="#">Close Order</a></li>-->
-                    </ul>
-                </li>
+<!--                    </ul>-->
+<!--                </li>-->
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Products<span class="caret"></span></a>
                     <ul class="dropdown-menu" style="width: 100%">
                         <li><a href="<?php echo site_url(); ?>/Admin/add_product">Add Product</a></li>
                         <li><a href="<?php echo site_url(); ?>/Admin/update_product">Update Product Details</a></li>
                         <li><a href="<?php echo site_url(); ?>/Admin/view_products">View Products</a></li>
-                        <li><a href="<?php echo site_url(); ?>/Admin/removeProduct">Remove Product</a></li>
+<!--                        <li><a href="--><?php //echo site_url(); ?><!--/Admin/remove_product">Remove Product</a></li>-->
+                    </ul>
+                </li>
+                <li><a href="<?php echo site_url(); ?>/Admin/view_main_stock">View Main Stock</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manage Vehicle Stock<span class="caret"></span></a>
+                    <ul class="dropdown-menu" style="width: 100%">
+                        <li><a href="<?php echo site_url(); ?>/Admin/vehicle_stock">Add Vehicle Stock</a></li>
+                        <li><a href="<?php echo site_url(); ?>/Admin/view_vehicle_stock">View Vehicle Stock</a></li>
+                        <li><a href="#">Remove Vehicle Stock</a></li>
                     </ul>
                 </li>
             </ul>

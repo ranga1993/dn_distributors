@@ -7,16 +7,13 @@ class Customer extends CI_Controller
 
     function __construct(){
         parent::__construct(); // needed when adding a constructor to a controller
-        $this->data = array('cus_nic'=>'942781326V');
+        $this->data = array('cus_nic'=>1);
         // $this->data can be accessed from anywhere in the controller.
     }
     public function index(){
         //$this->load->view('templates/form');
-        $this->cus_nic = array('cus_nic'=>'942781326V') ;
-
-        $this->load->model('customer_model');
-        $details['product']=$this->customer_model->get_product();
-        $this->load->view('Customer/customer_main_view',$details);
+        $this->cus_nic = array('cus_nic'=>1) ;
+        $this->load->view('Customer/customer_main_view');
 
     }
 
@@ -33,7 +30,6 @@ class Customer extends CI_Controller
         $cus_nic=$this->data['cus_nic'];
         $this->load->model('customer_model');
         $data['pending_orders']=$this->customer_model->get_pending_orders($cus_nic);
-        $data['products']=$this->customer_model->get_order_product();
         $this->load->view('Customer/cus_view_pending_orders',$data);
         //print_r($data);
     }
@@ -97,7 +93,8 @@ class Customer extends CI_Controller
 
     public function ViewRegDetails(){
         //echo'aaa';
-        $cus_nic=$this->data['cus_nic'];
+//        $cus_nic=$this->data['cus_nic'];
+        $cus_nic = $this->session->userdata['user_nic'];
         $this->load->model('customer_model');
 
         //get details of customer
@@ -108,10 +105,9 @@ class Customer extends CI_Controller
     }
 
     public function EditRegDetails(){
-        $cus_nic=$this->data['cus_nic'];
+        $cus_nic=$this->session->userata['user_nic'];
 
         $this->form_validation->set_rules('cus_name','cus_name','required');
-        $this->form_validation->set_rules('cus_address','cus_address','required');
         $this->form_validation->set_rules('cus_phone','cus_phone','required');
         $this->form_validation->set_rules('cus_company_name','cus_company_name','required');
         $this->form_validation->set_rules('cus_company_address','cus_company_address','required');
@@ -119,14 +115,14 @@ class Customer extends CI_Controller
         //$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>' );
 
         if($this->form_validation->run() == FALSE ){
-            $massage=array('massage' => 'You input some wrong details.please try again!!','class' => 'alert alert-warning fade in');
+            $massage=array('message' => 'You input some wrong details.please try again!!','class' => 'alert alert-warning fade in');
             $this->session->set_flashdata('massage',$massage);
             redirect('/Customer/ViewRegDetails');
         }
 
         else
         {
-            $massage=array('massage' => 'You Edited Your Profile Details...','class' => 'alert alert-success fade in');
+            $massage=array('message' => 'You Edited Your Profile Details...','class' => 'alert alert-success fade in');
             $this->session->set_flashdata('massage',$massage);
             $this->load->model('customer_model');
             $this->customer_model->Update_Customer($cus_nic);
@@ -156,7 +152,7 @@ class Customer extends CI_Controller
         print_r($data);
         $this->load->model('customer_model');
         $this->customer_model->customer_feedback($data);
-        $massage=array('massage' => 'Your Feedback Submitted ','class' => 'alert alert-success fade in');
+        $massage=array('message' => 'Your Feedback Submitted ','class' => 'alert alert-success fade in');
         $this->session->set_flashdata('massage',$massage);
         redirect('Customer');
         /*if ($this->form_validation->run() == FALSE){
@@ -208,7 +204,6 @@ class Customer extends CI_Controller
     }
 
     public function ViewCart(){
-
         $output='';
         $output.= '
             <h3> Your Order</h3>
@@ -238,7 +233,7 @@ class Customer extends CI_Controller
         }
         $output .='
                     <tr>
-                        <td colspan="3" align="right" >Total Price of Your Order (Rs.)</td>
+                        <td colspan="4" align="right" >Total Price of Your Order (Rs.)</td>
                         <td>'.$this->cart->total(). '</td>
                     </tr>
                 </table>
@@ -277,7 +272,7 @@ class Customer extends CI_Controller
         $delivery_address=$this->input->post('delivery_address') ;
         $order_date=$this->input->post('delivery_date') ;
         $count = 0;
-        $cus_nic =$this->data['cus_nic'];;
+        $cusID = 1;
         $order['delivery_address']=$delivery_address;
         $order['order_date'] = $order_date;
         foreach($this->cart->contents() as $item){
@@ -289,15 +284,15 @@ class Customer extends CI_Controller
         //print_r($data);
         //print_r($data['cusID']);
         if($count==0){
-            $massage=array('massage' => 'Please add items to order before submit..','class' => 'alert alert-warning fade in');
+            $massage=array('message' => 'Please add items to order before submit..','class' => 'alert alert-warning fade in');
             $this->session->set_flashdata('massage',$massage);
             redirect('/Customer/MakeOrder');
         }
         else{
             $this->load->model('customer_model');
-            $this->customer_model->add_order($cus_nic,$order,$data);
+            $this->customer_model->add_order($cusID,$order,$data);
             $this->ClearCart();
-            $massage=array('massage' => 'Your Order Added.It Will Delivered to You ','class' => 'alert alert-success fade in');
+            $massage=array('message' => 'Your Order Added.It Will Delivered to You ','class' => 'alert alert-success fade in');
             $this->session->set_flashdata('massage',$massage);
             redirect('Customer');
         }

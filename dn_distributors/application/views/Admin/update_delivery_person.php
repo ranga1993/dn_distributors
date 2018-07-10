@@ -1,10 +1,6 @@
 <?php require_once 'header.php'; ?>
 <?php if($this->session->userdata('loggedin') == TRUE)  {?>
     <?php require_once 'top2.php'; ?>
-<?php } else {?>
-    <?php require_once 'top.php'; ?>
-    <?php require_once 'login.php'; ?>
-    <?php require_once 'registration.php'; ?>
 <?php } ?>
 <?php require_once 'admin_side_bar.php' ?>
 <div class="container col-md-10"><br>
@@ -25,10 +21,10 @@
         {
             ?><tr>
             <td><?php echo $row->dp_name; ?></td>
-            <td><?php echo $row->address; ?></td>
-            <td><?php echo $row->nic; ?></td>
-            <td><?php echo $row->email; ?></td>
-            <td><?php echo $row->contact_number; ?></td>
+            <td><?php echo $row->dp_address; ?></td>
+            <td><?php echo $row->dp_nic; ?></td>
+            <td><?php echo $row->dp_email; ?></td>
+            <td><?php echo $row->dp_phone; ?></td>
             <td><button type="button" class="btn btn-success" onclick="edit_delivery_person(<?php echo $row->dp_id; ?>)">Update</button></td>
             <!--                <td>--><?php //echo anchor("Admin/view_each_customer/{$row-> customer_id}",'View',['class'=>'btn btn-info']);?><!--</td>-->
             </tr>
@@ -57,34 +53,34 @@
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="address" style="color: grey">Address</label>
+                            <label for="dp_address" style="color: grey">Address</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="address" class="form-control" type="text">
+                            <input name="dp_address" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="nic" style="color: grey">NIC</label>
+                            <label for="dp_nic" style="color: grey">NIC</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="nic" class="form-control" type="text">
+                            <input name="dp_nic" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="email" style="color: grey">Email</label>
+                            <label for="dp_email" style="color: grey">Email</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="email" class="form-control" type="text">
+                            <input name="dp_email" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-3">
-                            <label for="contact_number" style="color: grey">Contact Number</label>
+                            <label for="dp_phone" style="color: grey">Contact Number</label>
                         </div>
                         <div class="col-md-7">
-                            <input name="contact_number" class="form-control" type="text">
+                            <input name="dp_phone" class="form-control" type="text">
                         </div>
                     </div>
                     <div class="row" style="padding-top: 8px">
@@ -109,10 +105,10 @@
             success: function(data){
                 $('[name="dp_id"]').val(data.dp_id);
                 $('[name="dp_name"]').val(data.dp_name);
-                $('[name="address"]').val(data.address);
-                $('[name="nic"]').val(data.nic);
-                $('[name="email"]').val(data.email);
-                $('[name="contact_number"]').val(data.contact_number);
+                $('[name="dp_address"]').val(data.dp_address);
+                $('[name="dp_nic"]').val(data.dp_nic);
+                $('[name="dp_email"]').val(data.dp_email);
+                $('[name="dp_phone"]').val(data.dp_phone);
 
                 $('#updateDPModal').modal('show');
             }

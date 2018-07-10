@@ -1,10 +1,6 @@
 <?php require_once 'header.php'; ?>
 <?php if($this->session->userdata('loggedin') == TRUE)  {?>
     <?php require_once 'top2.php'; ?>
-<?php } else {?>
-    <?php require_once 'top.php'; ?>
-    <?php require_once 'login.php'; ?>
-    <?php require_once 'registration.php'; ?>
 <?php } ?>
 <?php require_once 'admin_side_bar.php' ?>
 <div class="col-md-10" style="padding-left: 120px">
@@ -12,42 +8,42 @@
         <?php echo form_open('Admin/add_delivery_person_details'); ?>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="name" style="color: grey">Delivery Person Name</label>
+                <label for="dp_name" style="color: grey">Delivery Person Name</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="name" required>
+                <input type="text" class="form-control" name="dp_name" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="address" style="color: grey">Address</label>
+                <label for="dp_address" style="color: grey">Address</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="address" required>
+                <input type="text" class="form-control" name="dp_address" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="nic" style="color: grey">NIC</label>
+                <label for="dp_nic" style="color: grey">NIC</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="nic" required>
+                <input type="text" class="form-control" name="dp_nic" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="email" style="color: grey">Email</label>
+                <label for="dp_email" style="color: grey">Email</label>
             </div>
             <div class="col-md-7">
-                <input type="email" class="form-control" name="email" required>
+                <input type="email" class="form-control" name="dp_email" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="contact_number" style="color: grey">Contact Number</label>
+                <label for="dp_phone" style="color: grey">Contact Number</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="contact_number" required>
+                <input type="text" class="form-control" name="dp_phone" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">

@@ -16,10 +16,10 @@
                 <div class="row" style="padding-top:8px">
                     <!-- Default input email -->
                     <div class="col-md-3"">
-                        <label for="email" style="color: grey">Your email</label>
+                        <label for="user_email" style="color: grey">Your email</label>
                     </div>
                     <div class="col-md-7"">
-                        <input type="email" class="form-control" name="email" style="width: 400px" required>
+                        <input type="email" class="form-control" name="user_email" style="width: 400px" required>
                     </div>
                 </div>
                 <div class="row" style="padding-top:8px">

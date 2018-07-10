@@ -1,14 +1,18 @@
 <?php require_once ('cus_header.php') ?>
-<?php require_once ('top.php') ?>
+<?php require_once ('top2.php') ?>
 <?php require_once ('customer_side_bar.php') ?>
 
-<?php if($this->session->flashdata('massage')){
-    $massage = $this->session->flashdata('massage');?>
-    <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
-<?php } ?>
+
+    <?php if($this->session->flashdata('massage')){
+        $message = $this->session->flashdata('massage');?>
+        <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+    <?php } ?>
+
 <div class="container">
-        <h1 style="color: #0c5460">Pending Order Details</h1>
+        <h1>Pending Orders</h1>
+
         <div class="table-responsive">
+
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -17,21 +21,21 @@
                         <th>Ordered Date </th>
                         <th>View Details</th>
                         <th>Cancel Order</th>
+
                     </tr>
                 </thead>
 
                 <tbody>
                 <?php
+                //print_r($pending_orders);
                 $num_pending=$pending_orders->num_rows();
 
                 if($num_pending>0){
-                    $order_id=0;
+                    $order_id['id']=0;
                     foreach($pending_orders->result() as $rec){
-                        if($order_id!=$rec->order_id){
-                            $order_id= $rec->order_id;
-                            $id=$rec->order_id;?>
-                            <?php $order_price=0;
-                            ?>
+                        if($order_id['id']!=$rec->order_id){
+                            $order_id['id'] = $rec->order_id;
+                             //print_r($pending_orders->result());?>
                             <tr>
                                 <td> <?php echo $rec-> order_id ; ?> </td>
                                 <td> <?php echo $rec-> delivery_address ; ?> </td>
@@ -62,12 +66,12 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-
+                                                                    <?php $order_id['price']=0 ?>
                                                                     <?php foreach($pending_orders->result() as $op){
-
-                                                                        if($rec->order_id==$op->order_id){
-                                                                            //print_r($products);
-                                                                        $order_price+=$op-> total_price ; ?>
+                                                                        //print_r($op);
+                                                                        if($op->order_id==$order_id['id']){
+                                                                            //print_r($order_id['id']);
+                                                                        $order_id['price']+=$op-> total_price ; ?>
                                                                         <tr>
                                                                             <td><?php echo $op-> product_id ; ?></td>
                                                                             <td><?php echo $op-> product_price ; ?></td>
@@ -78,11 +82,9 @@
                                                                     <?php }
                                                                         else{
                                                                             //$order_id['id2']=$op->order_id;
-                                                                            //print_r($op->order_id);
-                                                                            ?>
-                                                                        <?php }}?>
+                                                                        }}?>
                                                                     <tr>
-                                                                        <td colspan="3" align="right"><?php echo "Total Price of this Order : Rs.".$order_price ; ?></td>
+                                                                        <td colspan="4" align="center"><?php echo "Total Price of this Order : Rs.".$order_id['price'] ; ?></td>
                                                                     </tr>
                                                                 </tbody>
                                                                 </table>
@@ -137,11 +139,8 @@
                     success: function (data) {
                         alert ("Order Removed");
                         window.location.href ='http://localhost/dn_distributors/index.php/Customer/LoadPendingOrder';
-
                     }
-
                 });
-
             }
             else{
                 return false;

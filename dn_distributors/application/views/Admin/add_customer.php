@@ -1,10 +1,6 @@
 <?php require_once 'header.php'; ?>
 <?php if($this->session->userdata('loggedin') == TRUE)  {?>
     <?php require_once 'top2.php'; ?>
-<?php } else {?>
-    <?php require_once 'top.php'; ?>
-    <?php require_once 'login.php'; ?>
-    <?php require_once 'registration.php'; ?>
 <?php } ?>
 <?php require_once 'admin_side_bar.php' ?>
 <div class="col-md-10" style="padding-left: 120px">
@@ -12,50 +8,58 @@
         <?php echo form_open('Admin/customer_registration'); ?>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="name" style="color: grey">Customer Name</label>
+                <label for="cus_name" style="color: grey">Customer Name</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="name" required>
+                <input type="text" class="form-control" name="cus_name" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="company_name" style="color: grey">Company Name</label>
+                <label for="cus_company_name" style="color: grey">Company Name</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="company_name" required>
+                <input type="text" class="form-control" name="cus_company_name" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="address" style="color: grey">Address</label>
+                <label for="cus_company_address" style="color: grey">Company Address</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="address" required>
+                <input type="text" class="form-control" name="cus_company_address" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="nic" style="color: grey">NIC</label>
+                <label for="cus_nic" style="color: grey">NIC</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="nic" required>
+                <input type="text" class="form-control" name="cus_nic" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="email" style="color: grey">Email</label>
+                <label for="cus_email" style="color: grey">Email</label>
             </div>
             <div class="col-md-7">
-                <input type="email" class="form-control" name="email" required>
+                <input type="email" class="form-control" name="cus_email" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">
             <div class="col-md-2">
-                <label for="contact_number" style="color: grey">Contact Number</label>
+                <label for="cus_phone" style="color: grey">Contact Number</label>
             </div>
             <div class="col-md-7">
-                <input type="text" class="form-control" name="contact_number" required>
+                <input type="text" class="form-control" name="cus_phone" required>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 8px">
+            <div class="col-md-2">
+                <label for="cus_company_phone" style="color: grey">Company Contact Number</label>
+            </div>
+            <div class="col-md-7">
+                <input type="text" class="form-control" name="cus_company_phone" required>
             </div>
         </div>
         <div class="row" style="padding-top: 8px">

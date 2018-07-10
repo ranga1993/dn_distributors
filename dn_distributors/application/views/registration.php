@@ -8,50 +8,58 @@
             <div class="modal-body">
                 <div class="row" style="padding-top: 8px">
                     <div class="col-md-3">
-                        <label for="name" style="color: grey">Your Name</label>
+                        <label for="cus_name" style="color: grey">Your Name</label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="name" style="width: 400px" required>
+                        <input type="text" class="form-control" name="cus_name" style="width: 400px" required>
                     </div>
                 </div>
                 <div class="row" style="padding-top: 8px">
                     <div class="col-md-3">
-                        <label for="company_name" style="color: grey">Company Name</label>
+                        <label for="cus_company_name" style="color: grey">Company Name</label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="company_name" style="width: 400px" required>
+                        <input type="text" class="form-control" name="cus_company_name" style="width: 400px" required>
                     </div>
                 </div>
                 <div class="row" style="padding-top: 8px">
                     <div class="col-md-3">
-                        <label for="address" style="color: grey">Address</label>
+                        <label for="cus_company_address" style="color: grey">Company Address</label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="address" style="width: 400px" required>
+                        <input type="text" class="form-control" name="cus_company_address" style="width: 400px" required>
                     </div>
                 </div>
                 <div class="row" style="padding-top: 8px">
                     <div class="col-md-3">
-                        <label for="nic" style="color: grey">NIC</label>
+                        <label for="cus_nic" style="color: grey">NIC</label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="nic" style="width: 400px" required>
+                        <input type="text" class="form-control" name="cus_nic" style="width: 400px" required>
                     </div>
                 </div>
                 <div class="row" style="padding-top: 8px">
                     <div class="col-md-3">
-                        <label for="email" style="color: grey">Email</label>
+                        <label for="cus_email" style="color: grey">Email</label>
                     </div>
                     <div class="col-md-7">
-                        <input type="email" class="form-control" name="email" style="width: 400px" required>
+                        <input type="email" class="form-control" name="cus_email" style="width: 400px" required>
                     </div>
                 </div>
                 <div class="row" style="padding-top: 8px">
                     <div class="col-md-3">
-                        <label for="contact_number" style="color: grey">Contact Number</label>
+                        <label for="cus_phone" style="color: grey">Contact Number</label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="contact_number" style="width: 400px" required>
+                        <input type="text" class="form-control" name="cus_phone" style="width: 400px" required>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 8px">
+                    <div class="col-md-3">
+                        <label for="cus_company_phone" style="color: grey">Company Contact Number</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" name="cus_company_phone" style="width: 400px" required>
                     </div>
                 </div>
                 <div class="row" style="padding-top: 8px">

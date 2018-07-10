@@ -1,11 +1,7 @@
 <?php require_once 'header.php'; ?>
 <?php if($this->session->userdata('loggedin') == TRUE)  {?>
     <?php require_once 'top2.php'; ?>
-<?php } else {?>
-    <?php require_once 'top.php'; ?>
-    <?php require_once 'login.php'; ?>
-    <?php require_once 'registration.php'; ?>
-<?php } ?>
+<?php }?>
 <?php require_once 'admin_side_bar.php' ?>
 <div class="container col-md-10"><br>
     <table class="table table-striped">
@@ -25,10 +21,10 @@
         {
             ?><tr>
             <td><?php echo $row->dp_name; ?></td>
-            <td><?php echo $row->address; ?></td>
-            <td><?php echo $row->nic; ?></td>
-            <td><?php echo $row->email; ?></td>
-            <td><?php echo $row->contact_number; ?></td>
+            <td><?php echo $row->dp_address; ?></td>
+            <td><?php echo $row->dp_nic; ?></td>
+            <td><?php echo $row->dp_email; ?></td>
+            <td><?php echo $row->dp_phone; ?></td>
             <td><button type="button" class="btn btn-warning" onclick="remove_each_dp(<?php echo $row->dp_id; ?>)">Delete</button></td>
             <!--                <td>--><?php //echo anchor("Admin/view_each_customer/{$row-> customer_id}",'View',['class'=>'btn btn-info']);?><!--</td>-->
             </tr>

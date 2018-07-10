@@ -1,5 +1,5 @@
 <?php require_once ('cus_header.php') ?>
-<?php require_once ('top.php') ?>
+<?php require_once ('top2.php') ?>
 <?php require_once ('customer_side_bar.php') ?>
 
 <div class="container" >
