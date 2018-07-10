@@ -2,17 +2,13 @@
 <?php require_once ('top.php') ?>
 <?php require_once ('customer_side_bar.php') ?>
 
-
-    <?php if($this->session->flashdata('massage')){
-        $massage = $this->session->flashdata('massage');?>
-        <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
-    <?php } ?>
-
+<?php if($this->session->flashdata('massage')){
+    $massage = $this->session->flashdata('massage');?>
+    <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
+<?php } ?>
 <div class="container">
-        <h1>Pending Orders</h1>
-
+        <h1 style="color: #0c5460">Pending Order Details</h1>
         <div class="table-responsive">
-
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -21,13 +17,11 @@
                         <th>Ordered Date </th>
                         <th>View Details</th>
                         <th>Cancel Order</th>
-
                     </tr>
                 </thead>
 
                 <tbody>
                 <?php
-                //print_r($pending_orders);
                 $num_pending=$pending_orders->num_rows();
 
                 if($num_pending>0){
@@ -71,7 +65,7 @@
 
                                                                     <?php foreach($pending_orders->result() as $op){
 
-                                                                        if($id==$op->order_id){
+                                                                        if($rec->order_id==$op->order_id){
                                                                             //print_r($products);
                                                                         $order_price+=$op-> total_price ; ?>
                                                                         <tr>
@@ -84,12 +78,11 @@
                                                                     <?php }
                                                                         else{
                                                                             //$order_id['id2']=$op->order_id;
-                                                                            print_r($id);
-                                                                        }}
-                                                                    $id==0;
-                                                                    ?>
+                                                                            //print_r($op->order_id);
+                                                                            ?>
+                                                                        <?php }}?>
                                                                     <tr>
-                                                                        <td colspan="4" align="center"><?php echo "Total Price of this Order : Rs.".$order_price ; ?></td>
+                                                                        <td colspan="3" align="right"><?php echo "Total Price of this Order : Rs.".$order_price ; ?></td>
                                                                     </tr>
                                                                 </tbody>
                                                                 </table>

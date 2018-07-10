@@ -113,7 +113,7 @@ class customer_model extends CI_Model
     }
 
     public function add_order($cus_nic,$order,$data){
-        $order_no=substr($cus_nic,0,1).substr($order['order_date'],8,10).rand(1,5);
+        $order_no=substr($cus_nic,0,3).substr($order['order_date'],8,10).rand(10,20);
         $order_details = array(
             'order_id'         => $order_no,
             'cus_nic'          => $cus_nic,

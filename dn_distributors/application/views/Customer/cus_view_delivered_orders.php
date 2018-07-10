@@ -2,12 +2,12 @@
 <?php require_once ('top.php') ?>
 <?php require_once ('customer_side_bar.php') ?>
 
-    <?php if($this->session->flashdata('massage')){
-        $massage = $this->session->flashdata('massage');?>
-        <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
-    <?php } ?>
+<?php if($this->session->flashdata('massage')){
+    $massage = $this->session->flashdata('massage');?>
+    <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
+<?php } ?>
 <div class="container">
-    <h1>Delivered Orders</h1>
+    <h1 style="color: #0c5460">Delivered Order Details</h1>
     <div class="table-responsive">
 
         <table class="table table-striped">
@@ -67,7 +67,7 @@
                                                         <?php $order_id['price']=0 ?>
                                                         <?php foreach($delivered_order->result() as $op){
                                                             //print_r($op);
-                                                            if($op->order_id==$order_id['id']){
+                                                            if($op->order_id==$rec->order_id){
                                                                 //print_r($order_id['id']);
                                                                 //$order_id['id2']=$op->order_id;
                                                                 $order_id['price']+=$op-> total_price ; ?>

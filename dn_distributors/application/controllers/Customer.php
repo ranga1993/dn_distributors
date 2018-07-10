@@ -238,7 +238,7 @@ class Customer extends CI_Controller
         }
         $output .='
                     <tr>
-                        <td colspan="4" align="right" >Total Price of Your Order (Rs.)</td>
+                        <td colspan="3" align="right" >Total Price of Your Order (Rs.)</td>
                         <td>'.$this->cart->total(). '</td>
                     </tr>
                 </table>

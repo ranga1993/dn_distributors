@@ -15,7 +15,7 @@
 
         <div class="container">
             <div class="col-md-10" style="padding-left: 120px">
-                <h1>Your Details</h1>
+                <h1 style="color: #0c5460">Your Details</h1>
             </div>
             <div class="col-md-10" style="padding-left: 120px">
                 <div class="container" style="padding-top: 10px">
@@ -40,7 +40,7 @@
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="cus_address" style="color: grey">Customer Address</label>
+                            <label for="cus_address" style="color: grey">Address</label>
                         </div>
                         <div class="col-md-7">
                             <input type="text" class="form-control" name="cus_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_address; ?><?php }?>" required>

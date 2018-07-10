@@ -29,11 +29,11 @@
                                                      background-color:#f1f1f1;
                                                      border:1px solid #ccc;
                                                      margin-bottom:16px;
-                                                     height:300px;" align="center">
+                                                     height:270px;" align="center">
                                 <img src="http://localhost/dn_distributors/assets/images/'.$row->product_image.'" class="img-thumbnail" style="width:200px;height:100px;"/><br />
                                 <h4> '.$row->product_name.' </h4>
                                 <h4>Rs : '.$row->product_price.' </h4>
-                                <input type="text" class="quantity" name="quantity"  id="'.$row->product_id.'" />
+                                <input type="text" class="quantity" name="quantity"  id="'.$row->product_id.'" placeholder="Add Quantity Here" />
                                 <button type="button" name="add_cart"  class="btn btn-success add_cart" data-product_name="'.$row->product_name.'" data-product_price="'.$row->product_price.'" data-product_id="'.$row->product_id.'">Add to Order</button>
                         </div>
                     ';
@@ -87,17 +87,24 @@
             var quantity = $('#'+ product_id).val();
 
             if (quantity!='' && quantity>0){
-                $.ajax({
-                    url : "http://localhost/dn_distributors/index.php/Customer/AddToCart",
-                    method : "POST",
-                    data : {product_id : product_id, product_name : product_name, product_price : product_price, quantity : quantity },
+                if(confirm("Do you want to complete this order.?")){
+                    $.ajax({
+                        url : "http://localhost/dn_distributors/index.php/Customer/AddToCart",
+                        method : "POST",
+                        data : {product_id : product_id, product_name : product_name, product_price : product_price, quantity : quantity },
 
-                    success : function(data){
-                        //alert ("Product Added into Cart ");
-                        $('#cart_details').html(data);
-                        $('#'+product_id).val('');
-                    }
-                });
+                        success : function(data){
+                            //alert ("Product Added into Cart ");
+                            $('#cart_details').html(data);
+                            $('#'+product_id).val('');
+                        }
+                    });
+                }
+                else{
+                    return false;
+                }
+
+
 
             }
             else{
