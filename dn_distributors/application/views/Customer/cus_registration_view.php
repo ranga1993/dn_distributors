@@ -12,8 +12,8 @@
     <div id="the-massage"> </div>
 
         <?php if($this->session->flashdata('massage')){
-            $message = $this->session->flashdata('massage');?>
-            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+            $massage = $this->session->flashdata('massage');?>
+            <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
         <?php } ?>
     <div class="container" >
 

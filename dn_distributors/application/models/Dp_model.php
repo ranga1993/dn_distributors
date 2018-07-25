@@ -31,4 +31,39 @@ class Dp_model extends CI_Model{
         $query = $this->db->query("SELECT * FROM customer WHERE cus_id = $cus_id");
         return $query->row();
     }
+
+    public function get_product(){
+        $query=$this->db->get("product");
+        return $query->result() ;
+
+    }
+
+    public function add_order($cus_nic,$order,$data){
+        $order_no=substr($cus_nic,0,3).substr($order['order_date'],8,10).rand(10,20);
+        $order_details = array(
+            'order_id'         => $order_no,
+            'cus_nic'          => $cus_nic,
+            'ordered_date'     => $order['order_date'],
+            'delivery_address' => $order['delivery_address'],
+            'order_status'     => 4
+        );
+        $this->db->insert('orders',$order_details);
+
+        foreach ($data as $item){
+            $this->db->select('product_name');
+            $this->db->from('product');
+            $this->db->where('product_id',$item['id']);
+            $product_name =$this->db->get();
+            //print_r($product_name);
+            $order_product = array(
+                'order_id'      => $order_no,
+                'product_id'    => $item['id'],
+                'product_price' => $item['price'],
+                'quantity'      => $item['qty'],
+                'total_price'   => $item['subtotal'],
+            );
+            $this->db->insert('order_product',$order_product);
+        }
+
+    }
 }

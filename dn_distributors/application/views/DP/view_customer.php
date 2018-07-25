@@ -10,8 +10,8 @@
             <th>Company Address</th>
             <th>NIC</th>
             <th>Email</th>
-            <th>Contact Number</th>
-            <th>Company Contact Number</th>
+            <th>Mobile Number</th>
+            <th>Company Number</th>
             <th></th>
         </tr>
         </thead>
@@ -27,6 +27,7 @@
             <td><?php echo $row->cus_email; ?></td>
             <td><?php echo $row->cus_phone; ?></td>
             <td><?php echo $row->cus_company_phone; ?></td>
+            <?php echo ' <td><button type="button" name="make_order" class="btn btn-info make_order" data-cus_nic="'.$row->cus_nic.'" data-cus_company_address="'.$row->cus_company_address.'" >Make Order</button></td>'; ?>
             <td><button type="button" class="btn btn-info" onclick="view_each_customer(<?php echo $row->cus_id; ?>)">View</button></td>
             <!--                <td>--><?php //echo anchor("Admin/view_each_customer/{$row-> customer_id}",'View',['class'=>'btn btn-info']);?><!--</td>-->
             </tr>
@@ -128,7 +129,28 @@
             }
         })
     }
-</script>
 
-</body>
-</html>
+    $(document).ready(function() {
+        $('.make_order').click(function () {
+            var cus_nic = $(this).data("cus_nic");
+            var cus_company_address = $(this).data("cus_company_address");
+
+            if (confirm("Do you want make a order.?")) {
+                $.ajax({
+                    url: "http://localhost/dn_distributors/index.php/Delivery_person/MakeOrderDirect",
+                    method: "POST",
+                    data: {cus_company_address: cus_company_address, cus_nic: cus_nic},
+
+                    success: function (data) {
+                        //alert ("Product Added into Cart ");
+                        //$('#cart_details').html(data);
+                        //$('#'+product_id).val('');
+                       }
+                });
+            }
+            else {
+                return false;
+            }
+        });
+    });
+</script>

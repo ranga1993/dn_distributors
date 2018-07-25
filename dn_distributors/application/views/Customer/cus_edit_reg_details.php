@@ -1,6 +1,15 @@
-<?php require_once ('cus_header.php') ?>
-<?php require_once ('top2.php') ?>
-<?php require_once ('customer_side_bar.php') ?>
+<?php /*require_once ('cus_header.php') */?><!--
+<?php /*require_once ('top.php') */?>
+--><?php /*require_once ('customer_side_bar.php') */?>
+<?php require_once 'cus_header.php'; ?>
+<?php if($this->session->userdata('loggedin') == TRUE)  {?>
+    <?php require_once 'top2.php'; ?>
+<?php } else {?>
+    <?php require_once 'top.php'; ?>
+    <?php require_once 'login.php'; ?>
+    <?php require_once 'registration.php'; ?>
+<?php } ?>
+<?php require_once 'customer_side_bar.php' ?>
 
 
 <?php echo form_open('Customer/EditRegDetails');?>
@@ -8,14 +17,14 @@
 <div class="container" >
 
     <?php if($this->session->flashdata('massage')){
-            $message = $this->session->flashdata('massage');?>
-            <div class="<?php echo $message['class'] ?>"><?php echo $message['message']; ?></div>
+            $massage = $this->session->flashdata('massage');?>
+            <div class="<?php echo $massage['class'] ?>"><?php echo $massage['massage']; ?></div>
         <?php } ?>
     <div id="the-massage"> </div>
 
         <div class="container">
             <div class="col-md-10" style="padding-left: 120px">
-                <h1>Your Details</h1>
+                <h1 style="color: #0c5460">Your Details</h1>
             </div>
             <div class="col-md-10" style="padding-left: 120px">
                 <div class="container" style="padding-top: 10px">
@@ -40,7 +49,16 @@
 
                     <div class="row" style="padding-top: 8px">
                         <div class="col-md-2">
-                            <label for="cus_phone" style="color: grey">Contact Number</label>
+                            <label for="cus_address" style="color: grey">Address</label>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" name="cus_address" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_company_address; ?><?php }?>" required>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top: 8px">
+                        <div class="col-md-2">
+                            <label for="cus_phone" style="color: grey">Phone Number</label>
                         </div>
                         <div class="col-md-7">
                             <input type="text" class="form-control" name="cus_phone" value="<?php foreach ($customer as $cus) {?><?php echo $cus->cus_phone; ?><?php }?>" required>
@@ -92,7 +110,7 @@
 
                 </div>
             </div>
-            </div>
+            </div>--
         </div>
 </div>
 
